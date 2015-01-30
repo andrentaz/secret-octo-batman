@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pcat_nucleo"
+        android:key="pref_cat_lideranca"
+        >
+        <EditTextPreference
+            android:title="@string/text_lider"
+            android:key="pref_lider"
+            android:defaultValue="@string/pref_liderName"
+            />
+
+        <EditTextPreference
+            android:title="@string/text_colider"
+            android:key="pref_colider"
+            android:defaultValue="@string/pref_coliderName"
+            />
+
+        <EditTextPreference
+            android:title="@string/text_lt1"
+            android:key="pref_lt1"
+            android:defaultValue="@string/pref_lt1Name"
+            />
+
+        <EditTextPreference
+            android:title="@string/text_host"
+            android:key="pref_host"
+            android:defaultValue="@string/pref_hostName"
+            />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -13,5 +13,18 @@
 
     <!-- Button Strings -->
     <string name="button_fill">Preencher</string>
+    
+    <!-- Preferences -->
+    <string name="pref_liderName">Nome do Lider</string>
+    <string name="pref_coliderName">Nome do Co Líder</string>
+    <string name="pref_lt1Name">Nome do Lider em Treinamento</string>
+    <string name="pref_hostName">Nome do Hospedeiro</string>
+    <string name="pref_team">Nome da Equipe</string>
+    <string name="pref_group">Nome da Rede</string>
+
+    <!-- Preferences Lideranca Category -->
+    <string name="pcat_lideranca">Liderança</string>
+    <string name="pcat_nucleo">Núcleo</string>
+
 
 </resources>

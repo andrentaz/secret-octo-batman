@@ -89,8 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="clip_horizontal"
         android:text="DATE"
-        android:id="@+id/button_setDate"
-        android:onClick="showDatePickerDialog" />
+        android:id="@+id/button_setDate" />
 
     <Button
         android:layout_width="wrap_content"
