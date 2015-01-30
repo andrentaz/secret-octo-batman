@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Inicial Setup Strings -->
+    <string name="app_name">LCReporter</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Fixed Text Strings -->
+    <string name="text_lider">Líder:</string>
+    <string name="text_colider">Co Líder:</string>
+    <string name="text_lt1">Líder em Treinamento 1:</string>
+    <string name="text_host">Hospedeiro:</string>
+
+    <!-- Button Strings -->
+    <string name="button_fill">Preencher</string>
+
+</resources>
