@@ -10,10 +10,11 @@
     <string name="text_colider">Co Líder</string>
     <string name="text_lt1">Líder em Treinamento 1</string>
     <string name="text_host">Hospedeiro</string>
+    <string name="text_date">Data</string>
 
     <!-- Button Strings -->
     <string name="button_fill">Preencher</string>
-    
+
     <!-- Preferences -->
     <string name="pref_liderName">Nome do Lider</string>
     <string name="pref_coliderName">Nome do Co Líder</string>
@@ -26,5 +27,8 @@
     <string name="pcat_lideranca">Liderança</string>
     <string name="pcat_nucleo">Núcleo</string>
 
+    <!-- Preferences Lideranca Category -->
+    <string name="pref_summ_lider">Responsável pela Célula</string>
+    <string name="title_activity_fill_report">FillReportActivity</string>
 
 </resources>

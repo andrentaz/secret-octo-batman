@@ -18,8 +18,20 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="LCReporter_Settings">
-            </activity>
+            android:label="LCReporter_Settings" >
+        </activity>
+        <activity
+            android:name=".DatePickerActivity"
+            android:label="LCReporter_DatePicker" >
+        </activity>
+        <activity
+            android:name=".FillReportActivity"
+            android:label="@string/title_activity_fill_report"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.myco.lcreporter.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

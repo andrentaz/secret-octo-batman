@@ -9,6 +9,7 @@
             android:title="@string/text_lider"
             android:key="pref_lider"
             android:defaultValue="@string/pref_liderName"
+            android:summary="@string/pref_summ_lider"
             />
 
         <EditTextPreference

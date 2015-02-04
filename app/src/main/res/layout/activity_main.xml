@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_lider"
+        android:imeOptions="actionNext"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
     <!-- *************************************************************************************** -->
@@ -39,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_colider"
+        android:focusable="true"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
 
@@ -59,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_lt1"
+        android:focusable="true"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
 
@@ -79,23 +82,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_host"
+        android:focusable="true"
+        style="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    <!-- *************************************************************************************** -->
+    <!-- Date Stuff -->
+    <TextView
+        android:text="@string/text_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="#444444"
+        android:textStyle="bold|italic" />
+
+    <!-- Future Edit to use the settings value -->
+    <EditText
+        android:id="@+id/editText_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_date"
+        android:inputType="date"
+        android:focusable="true"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
     <!-- *************************************************************************************** -->
     <!-- *************************************************************************************** -->
     <!-- This are the two configurating buttons -->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="clip_horizontal"
-        android:text="DATE"
-        android:id="@+id/button_setDate" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_fill"
         android:id="@+id/button_generate"
+        android:onClick="fillReport"
         android:layout_gravity="center_horizontal" />
 
 
