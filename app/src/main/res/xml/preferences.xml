@@ -3,7 +3,6 @@
 
     <PreferenceCategory
         android:title="@string/pcat_nucleo"
-        android:key="pref_cat_lideranca"
         >
         <EditTextPreference
             android:title="@string/text_lider"

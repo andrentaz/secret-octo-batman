@@ -11,12 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
 
     public static final String EXTRA_LIDER = "com.myco.lcreporter.LIDER";
     public static final String EXTRA_COLIDER = "com.myco.lcreporter.COLIDER";
+    public static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,35 +62,22 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void fillReport(View view) {
-        /* CREATING A NEW ACTIVITY
-        Intent intentFill = new Intent(this, FillReportActivity.class);
-        EditText editText;
-        String leaderName, coleaderName;
-
-        // Getting Leader Text
-        editText = (EditText) findViewById(R.id.editText_lider);
-        leaderName = editText.getText().toString();
-        intentFill.putExtra(EXTRA_LIDER, leaderName);
-
-        // Getting Coleader Text
-        editText = (EditText) findViewById(R.id.editText_colider);
-        coleaderName = editText.getText().toString();
-        intentFill.putExtra(EXTRA_COLIDER, coleaderName);
-
-        // 1.0 - Creates another activity
-        startActivity(intentFill);
-        */
+        //Toast.makeText(getBaseContext(), "Entrei fillReport", Toast.LENGTH_LONG).show();
 
         /* Shared Preferences */
         EditText editText = (EditText) findViewById(R.id.editText_lider);
         String leaderName = editText.getText().toString();
 
+        //Toast.makeText(getBaseContext(), leaderName, Toast.LENGTH_LONG).show();
+
         /* Changing the preferences using a SharedPreferences Object */
-        SharedPreferences prefs = this.getSharedPreferences("com.myco.lcreporter",
-                Context.MODE_PRIVATE);
+        SharedPreferences sett = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         /* Changes and apply */
-        prefs.edit().putString("com.myco.lcreporter.pref_cat_lideranca.pref_lider",
-                leaderName).apply();
+        sett.edit().putString("pref_lider", leaderName);
+        sett.edit().apply();
+
+        leaderName = sett.getString("pref_lider", "");
+        Toast.makeText(getBaseContext(), leaderName, Toast.LENGTH_LONG).show();
     }
 }
