@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -18,12 +19,37 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String EXTRA_LIDER = "com.myco.lcreporter.LIDER";
     public static final String EXTRA_COLIDER = "com.myco.lcreporter.COLIDER";
-    public static final String PREFS_NAME = "MyPrefsFile";
+    private SharedPreferences mySettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Getting the preferences object
+        this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String accLeader = this.mySettings.getString("pref_lider", "");
+
+        // Putting the Settings Text in the Box
+        // Leader
+        EditText editText = (EditText) findViewById(R.id.editText_lider);
+        editText.setText(accLeader, TextView.BufferType.EDITABLE);
+
+        // Co Leader
+        accLeader = this.mySettings.getString("pref_colider", "");
+        editText = (EditText) findViewById(R.id.editText_colider);
+        editText.setText(accLeader, TextView.BufferType.EDITABLE);
+
+        // LT1
+        accLeader = this.mySettings.getString("pref_lt1", "");
+        editText = (EditText) findViewById(R.id.editText_lt1);
+        editText.setText(accLeader, TextView.BufferType.EDITABLE);
+
+        // Host
+        accLeader = this.mySettings.getString("pref_host", "");
+        editText = (EditText) findViewById(R.id.editText_host);
+        editText.setText(accLeader, TextView.BufferType.EDITABLE);
+
     }
 
     @Override
@@ -62,22 +88,34 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void fillReport(View view) {
-        //Toast.makeText(getBaseContext(), "Entrei fillReport", Toast.LENGTH_LONG).show();
-
         /* Shared Preferences */
-        EditText editText = (EditText) findViewById(R.id.editText_lider);
-        String leaderName = editText.getText().toString();
+        EditText editText;
+        String leaderName, coleaderName, lt1Name, hostName;
 
-        //Toast.makeText(getBaseContext(), leaderName, Toast.LENGTH_LONG).show();
+        /* Getting User Input */
+        editText = (EditText) findViewById(R.id.editText_lider);
+        leaderName = editText.getText().toString();
+
+        editText = (EditText) findViewById(R.id.editText_colider);
+        coleaderName = editText.getText().toString();
+
+        editText = (EditText) findViewById(R.id.editText_lt1);
+        lt1Name = editText.getText().toString();
+
+        editText = (EditText) findViewById(R.id.editText_host);
+        hostName = editText.getText().toString();
 
         /* Changing the preferences using a SharedPreferences Object */
-        SharedPreferences sett = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         /* Changes and apply */
-        sett.edit().putString("pref_lider", leaderName);
-        sett.edit().apply();
+        SharedPreferences.Editor editor = this.mySettings.edit();
+        editor.putString("pref_lider", leaderName);
+        editor.putString("pref_colider", coleaderName);
+        editor.putString("pref_lt1", lt1Name);
+        editor.putString("pref_host", hostName);
 
-        leaderName = sett.getString("pref_lider", "");
-        Toast.makeText(getBaseContext(), leaderName, Toast.LENGTH_LONG).show();
+        // Commit
+        editor.commit();
     }
 }

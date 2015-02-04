@@ -108,7 +108,7 @@
 
     <!-- *************************************************************************************** -->
     <!-- *************************************************************************************** -->
-    <!-- This are the two configurating buttons -->
+    <!-- This are the configuration buttons -->
 
     <Button
         android:layout_width="wrap_content"
