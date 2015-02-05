@@ -25,31 +25,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Getting the preferences object
-        this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String accLeader = this.mySettings.getString("pref_lider", "");
-
-        // Putting the Settings Text in the Box
-        // Leader
-        EditText editText = (EditText) findViewById(R.id.editText_lider);
-        editText.setText(accLeader, TextView.BufferType.EDITABLE);
-
-        // Co Leader
-        accLeader = this.mySettings.getString("pref_colider", "");
-        editText = (EditText) findViewById(R.id.editText_colider);
-        editText.setText(accLeader, TextView.BufferType.EDITABLE);
-
-        // LT1
-        accLeader = this.mySettings.getString("pref_lt1", "");
-        editText = (EditText) findViewById(R.id.editText_lt1);
-        editText.setText(accLeader, TextView.BufferType.EDITABLE);
-
-        // Host
-        accLeader = this.mySettings.getString("pref_host", "");
-        editText = (EditText) findViewById(R.id.editText_host);
-        editText.setText(accLeader, TextView.BufferType.EDITABLE);
-
+        this.getSettingsBoxes();
     }
 
     @Override
@@ -118,4 +94,36 @@ public class MainActivity extends ActionBarActivity {
         // Commit
         editor.commit();
     }
+
+    /* ------------------------------------------------------------------------------------------ */
+    /* My Methods */
+
+    /**
+     * Read content int the Preferences File to update in the Text Box*/
+    public void getSettingsBoxes() {
+        // Getting the preferences object
+        this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String name = this.mySettings.getString("pref_lider", "");
+
+        // Putting the Settings Text in the Box
+        // Leader
+        EditText editText = (EditText) findViewById(R.id.editText_lider);
+        editText.setText(name, TextView.BufferType.EDITABLE);
+
+        // Co Leader
+        name = this.mySettings.getString("pref_colider", "");
+        editText = (EditText) findViewById(R.id.editText_colider);
+        editText.setText(name, TextView.BufferType.EDITABLE);
+
+        // LT1
+        name = this.mySettings.getString("pref_lt1", "");
+        editText = (EditText) findViewById(R.id.editText_lt1);
+        editText.setText(name, TextView.BufferType.EDITABLE);
+
+        // Host
+        name = this.mySettings.getString("pref_host", "");
+        editText = (EditText) findViewById(R.id.editText_host);
+        editText.setText(name, TextView.BufferType.EDITABLE);
+    }
+
 }
