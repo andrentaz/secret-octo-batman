@@ -8,31 +8,46 @@
             android:title="@string/text_lider"
             android:key="pref_lider"
             android:defaultValue="@string/pref_liderName"
-            android:summary="@string/pref_summ_lider"
-            />
+            android:summary="@string/pref_summ_lider" />
 
         <EditTextPreference
             android:title="@string/text_colider"
             android:key="pref_colider"
             android:defaultValue="@string/pref_coliderName"
-            />
+            android:summary="@string/pref_summ_colider" />
 
         <EditTextPreference
             android:title="@string/text_lt1"
             android:key="pref_lt1"
             android:defaultValue="@string/pref_lt1Name"
-            />
+            android:summary="@string/pref_summ_lt1" />
 
         <EditTextPreference
             android:title="@string/text_host"
             android:key="pref_host"
-            android:defaultValue="@string/pref_hostName"
-            />
+            android:defaultValue="@string/pref_hostName" />
 
     </PreferenceCategory>
 
 
-    <PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pcat_lideranca" >
+        <EditTextPreference
+            android:title="@string/text_eqp"
+            android:key="pref_eqp"
+            android:defaultValue="@string/pref_eqpName" />
+
+        <EditTextPreference
+            android:title="@string/text_master"
+            android:key="pref_master"
+            android:defaultValue="@string/pref_masterName" />
+
+        <EditTextPreference
+            android:title="@string/text_rede"
+            android:key="pref_rede"
+            android:defaultValue="@string/pref_redeName"
+            android:summary="@string/pref_summ_rede" />
+
 
     </PreferenceCategory>
 

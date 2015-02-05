@@ -20,6 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_lider"
+
+        android:singleLine="true"
         android:imeOptions="actionNext"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
@@ -40,7 +42,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_colider"
+
         android:focusable="true"
+        android:singleLine="true"
+        android:imeOptions="actionNext"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
 
@@ -61,7 +66,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_lt1"
+
         android:focusable="true"
+        android:singleLine="true"
+        android:imeOptions="actionNext"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
 
@@ -82,7 +90,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_host"
+
         android:focusable="true"
+        android:singleLine="true"
+        android:imeOptions="actionNext"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
     <!-- *************************************************************************************** -->
@@ -103,6 +114,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/text_date"
         android:inputType="date"
+
         android:focusable="true"
         style="@android:style/TextAppearance.DeviceDefault.Large" />
 
@@ -111,11 +123,11 @@
     <!-- This are the configuration buttons -->
 
     <Button
+        android:id="@+id/button_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_fill"
-        android:id="@+id/button_generate"
-        android:onClick="fillReport"
+        android:text="@string/button_next"
+        android:onClick="goEqpActivity"
         android:layout_gravity="center_horizontal" />
 
 

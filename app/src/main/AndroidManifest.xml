@@ -27,8 +27,8 @@
             android:label="LCReporter_DatePicker" >
         </activity>
         <activity
-            android:name=".FillReportActivity"
-            android:label="@string/title_activity_fill_report"
+            android:name=".EqpActivity"
+            android:label="@string/title_activity_eqp"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

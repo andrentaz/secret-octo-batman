@@ -1,37 +1,33 @@
 package com.myco.lcreporter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class EqpActivity extends ActionBarActivity {
 
-    public static final String EXTRA_LIDER = "com.myco.lcreporter.LIDER";
-    public static final String EXTRA_COLIDER = "com.myco.lcreporter.COLIDER";
     private SharedPreferences mySettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        this.getSettingsBoxes();
+        setContentView(R.layout.activity_eqp);
+        getSettingsBoxes();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_eqp, menu);
         return true;
     }
 
@@ -40,7 +36,6 @@ public class MainActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent settingIntent = new Intent(this, SettingsActivity.class);
@@ -49,23 +44,11 @@ public class MainActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-    }
-
-    public void showDatePickerDialog(View view) {
-        /*DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");*/
-
-        /* Creates the DatePickerActivity */
-        Intent datePickerIntent = new Intent(this, DatePickerActivity.class);
-        this.startActivity(datePickerIntent);
-
     }
 
     /* ------------------------------------------------------------------------------------------ */
     /* Button Methods */
-    /* Save the changes in the settings fields and them changes the Activity */
-    public void goEqpActivity (View view) {
+    public void fillReport(View view) {
         /* Shared Preferences */
         EditText editText;
         String leaderName, coleaderName, lt1Name, hostName;
@@ -95,12 +78,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Commit
         editor.commit();
-
-        /* Changing the activity */
-        Intent intent = new Intent(this, EqpActivity.class);
-        this.startActivity(intent);
     }
-
 
     /* ------------------------------------------------------------------------------------------ */
     /* My Methods */
@@ -110,26 +88,21 @@ public class MainActivity extends ActionBarActivity {
     public void getSettingsBoxes() {
         // Getting the preferences object
         this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String name = this.mySettings.getString("pref_lider", "");
+        String name = this.mySettings.getString("pref_eqp", "");
 
         // Putting the Settings Text in the Box
-        // Leader
-        EditText editText = (EditText) findViewById(R.id.editText_lider);
+        // Equipe
+        EditText editText = (EditText) findViewById(R.id.editText_eqp);
         editText.setText(name, TextView.BufferType.EDITABLE);
 
-        // Co Leader
-        name = this.mySettings.getString("pref_colider", "");
+        // Master
+        name = this.mySettings.getString("pref_master", "");
         editText = (EditText) findViewById(R.id.editText_colider);
         editText.setText(name, TextView.BufferType.EDITABLE);
 
-        // LT1
-        name = this.mySettings.getString("pref_lt1", "");
+        // Rede
+        name = this.mySettings.getString("pref_rede", "");
         editText = (EditText) findViewById(R.id.editText_lt1);
-        editText.setText(name, TextView.BufferType.EDITABLE);
-
-        // Host
-        name = this.mySettings.getString("pref_host", "");
-        editText = (EditText) findViewById(R.id.editText_host);
         editText.setText(name, TextView.BufferType.EDITABLE);
     }
 }
