@@ -2,6 +2,7 @@ package com.myco.lcreporter;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,7 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class EqpActivity extends ActionBarActivity {
+public class EqpActivity extends ActionBarActivity
+                    implements EqpFragment.OnFragmentInteractionListener {
 
     private SharedPreferences mySettings;
 
@@ -20,7 +22,24 @@ public class EqpActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eqp);
-        getSettingsBoxes();
+        //getSettingsBoxes();
+
+        if (findViewById(R.id.fragment_container) != null) {
+            // Restored from any state
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            // Create the fragment to be placed in the FrameLayout
+            EqpFragment fragment = new EqpFragment();
+
+            // In case there are arguments passed as EXTRAs from the Intent
+            fragment.setArguments(getIntent().getExtras());
+
+            // Add Fragment to the container
+            getFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, fragment, null).commit();
+        }
     }
 
 
@@ -104,5 +123,10 @@ public class EqpActivity extends ActionBarActivity {
         name = this.mySettings.getString("pref_rede", "");
         editText = (EditText) findViewById(R.id.editText_lt1);
         editText.setText(name, TextView.BufferType.EDITABLE);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        // TODO
     }
 }

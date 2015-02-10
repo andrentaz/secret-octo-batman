@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:verticalScrollbarPosition="right"
+
+    tools:context="com.myco.lcreporter.EqpFragment">
+
+    <!-- Dados da Equipe -->
+    <!-- Nome -->
+    <TextView
+        android:text="@string/text_eqp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="#444444"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/editText_eqp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:singleLine="true"
+        android:imeOptions="actionNext"
+        style="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    <!-- Lideres -->
+    <TextView
+        android:text="@string/text_master"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="#444444"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/editText_master"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:singleLine="true"
+        android:imeOptions="actionNext"
+        style="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    <!-- Rede -->
+    <TextView
+        android:text="@string/text_rede"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="#444444"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/editText_rede"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:singleLine="true"
+        android:imeOptions="actionNext"
+        style="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    <!-- *************************************************************************************** -->
+    <!-- *************************************************************************************** -->
+    <Button
+        android:id="@+id/button_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_fill"
+        android:layout_gravity="center_horizontal"
+        android:onClick="fillReport" />
+
+</LinearLayout>

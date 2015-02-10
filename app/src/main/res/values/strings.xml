@@ -4,7 +4,6 @@
     <!-- Inicial Setup Strings -->
     <string name="app_name">LCReporter</string>
     <string name="action_settings">Settings</string>
-
     <string name="title_activity_fill_report">FillReportActivity</string>
     <string name="title_activity_eqp">EqpActivity</string>
 
@@ -43,5 +42,6 @@
     <string name="pref_eqpName">Nome da Equipe</string>
     <string name="pref_summ_colider">Co resposável pela célula e suas atividades</string>
     <string name="pref_summ_lt1">Discípulo em processo de formação para assumir uma liderança</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
