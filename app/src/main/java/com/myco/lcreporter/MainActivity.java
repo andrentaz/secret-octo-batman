@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-    public static final String EXTRA_LIDER = "com.myco.lcreporter.LIDER";
-    public static final String EXTRA_COLIDER = "com.myco.lcreporter.COLIDER";
     private SharedPreferences mySettings;
 
     @Override

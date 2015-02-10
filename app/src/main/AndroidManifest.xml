@@ -9,23 +9,28 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SettingsActivity"
             android:label="LCReporter_Settings" >
         </activity>
+
         <activity
             android:name=".DatePickerActivity"
             android:label="LCReporter_DatePicker" >
         </activity>
+
         <activity
             android:name=".EqpActivity"
             android:label="@string/title_activity_eqp"
@@ -34,6 +39,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.myco.lcreporter.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>
