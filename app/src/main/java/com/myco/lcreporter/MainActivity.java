@@ -91,8 +91,11 @@ public class MainActivity extends ActionBarActivity {
         editor.putString("pref_lt1", lt1Name);
         editor.putString("pref_host", hostName);
 
+        //Toast.makeText(getApplicationContext(), "Iniciando Nova Intent", Toast.LENGTH_LONG).show();
         // Commit
         editor.commit();
+
+
 
         /* Changing the activity */
         Intent intent = new Intent(this, EqpActivity.class);

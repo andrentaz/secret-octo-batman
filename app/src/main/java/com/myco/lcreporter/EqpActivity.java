@@ -97,12 +97,12 @@ public class EqpActivity extends ActionBarActivity {
 
         // Master
         name = this.mySettings.getString("pref_master", "");
-        editText = (EditText) findViewById(R.id.editText_colider);
+        editText = (EditText) findViewById(R.id.editText_master);
         editText.setText(name, TextView.BufferType.EDITABLE);
 
         // Rede
         name = this.mySettings.getString("pref_rede", "");
-        editText = (EditText) findViewById(R.id.editText_lt1);
+        editText = (EditText) findViewById(R.id.editText_rede);
         editText.setText(name, TextView.BufferType.EDITABLE);
     }
 }
