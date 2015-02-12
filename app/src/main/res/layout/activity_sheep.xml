@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <FrameLayout
-        android:id="@+id/contacts_list_container"
+    <ListView
+        android:id="@+id/fragment_contacts_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
