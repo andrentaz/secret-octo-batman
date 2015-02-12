@@ -4,9 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <Button
+        android:text="@string/button_addContact"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addContact"/>
+
+    <Button
+        android:text="@string/button_addPeople"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addPeople" />
+
     <ListView
-        android:id="@+id/fragment_contacts_container"
+        android:id="@+id/contactsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:text="@string/button_fill"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="fillReport" />
 
 </LinearLayout>

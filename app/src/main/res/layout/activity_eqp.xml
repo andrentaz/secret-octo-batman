@@ -80,9 +80,9 @@
                 android:id="@+id/button_generate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/button_fill"
+                android:text="@string/button_next"
                 android:layout_gravity="center_horizontal"
-                android:onClick="fillReport" />
+                android:onClick="goSheepActivity" />
 
 
         </LinearLayout>

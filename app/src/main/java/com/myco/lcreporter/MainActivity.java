@@ -18,6 +18,8 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 
     private SharedPreferences mySettings;
+    private EditText editText;
+    private Intent nextActivityIntent = new Intent(this, EqpActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,21 +67,20 @@ public class MainActivity extends ActionBarActivity {
     /* Save the changes in the settings fields and them changes the Activity */
     public void goEqpActivity (View view) {
         /* Shared Preferences */
-        EditText editText;
         String leaderName, coleaderName, lt1Name, hostName;
 
         /* Getting User Input */
-        editText = (EditText) findViewById(R.id.editText_lider);
-        leaderName = editText.getText().toString();
+        this.editText = (EditText) findViewById(R.id.editText_lider);
+        leaderName = this.editText.getText().toString();
 
-        editText = (EditText) findViewById(R.id.editText_colider);
-        coleaderName = editText.getText().toString();
+        this.editText = (EditText) findViewById(R.id.editText_colider);
+        coleaderName = this.editText.getText().toString();
 
-        editText = (EditText) findViewById(R.id.editText_lt1);
-        lt1Name = editText.getText().toString();
+        this.editText = (EditText) findViewById(R.id.editText_lt1);
+        lt1Name = this.editText.getText().toString();
 
-        editText = (EditText) findViewById(R.id.editText_host);
-        hostName = editText.getText().toString();
+        this.editText = (EditText) findViewById(R.id.editText_host);
+        hostName = this.editText.getText().toString();
 
         /* Changing the preferences using a SharedPreferences Object */
         this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -97,8 +98,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         /* Changing the activity */
-        Intent intent = new Intent(this, EqpActivity.class);
-        this.startActivity(intent);
+        this.startActivity(this.nextActivityIntent);
     }
 
 

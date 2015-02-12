@@ -21,9 +21,14 @@
     <string name="text_master">Lider de Equipe</string>
     <string name="text_rede">Rede</string>
 
+    <!-- Ovelhas -->
+    <string name="sheepText">Participantes</string>
+
     <!-- Button Strings -->
     <string name="button_next">Próximo</string>
-    <string name="button_fill">Preencher</string>
+    <string name="button_fill">Gerar</string>
+    <string name="button_addContact">Adicionar Contato</string>
+    <string name="button_addPeople">Adicionar Pessoa</string>
 
     <!-- Preferences -->
     <string name="pref_liderName">Nome do Lider</string>
