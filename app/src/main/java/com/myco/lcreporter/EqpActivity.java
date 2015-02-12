@@ -15,8 +15,6 @@ import android.widget.TextView;
 public class EqpActivity extends ActionBarActivity {
 
     private SharedPreferences mySettings;
-    private EditText editText;
-    private Intent nextActivityIntent = new Intent(this, SheepActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +52,14 @@ public class EqpActivity extends ActionBarActivity {
         String eqpName, masterName, redeName;
 
         /* Getting User Input */
-        this.editText = (EditText) findViewById(R.id.editText_lider);
-        eqpName = this.editText.getText().toString();
+        EditText editText = (EditText) findViewById(R.id.editText_eqp);
+        eqpName = editText.getText().toString();
 
-        this.editText = (EditText) findViewById(R.id.editText_colider);
-        masterName = this.editText.getText().toString();
+        editText = (EditText) findViewById(R.id.editText_master);
+        masterName = editText.getText().toString();
 
-        this.editText = (EditText) findViewById(R.id.editText_lt1);
-        redeName = this.editText.getText().toString();
+        editText = (EditText) findViewById(R.id.editText_rede);
+        redeName = editText.getText().toString();
 
         /* Changing the preferences using a SharedPreferences Object */
         this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -76,7 +74,8 @@ public class EqpActivity extends ActionBarActivity {
         editor.commit();
 
         /* Going next */
-        this.startActivity(this.nextActivityIntent);
+        Intent nextActivityIntent = new Intent(this, SheepActivity.class);
+        startActivity(nextActivityIntent);
     }
 
     /* ------------------------------------------------------------------------------------------ */
@@ -92,17 +91,17 @@ public class EqpActivity extends ActionBarActivity {
 
         // Putting the Settings Text in the Box
         // Equipe
-        this.editText = (EditText) findViewById(R.id.editText_eqp);
-        this.editText.setText(name, TextView.BufferType.EDITABLE);
+        EditText editText = (EditText) findViewById(R.id.editText_eqp);
+        editText.setText(name, TextView.BufferType.EDITABLE);
 
         // Master
         name = this.mySettings.getString("pref_master", "");
-        this.editText = (EditText) findViewById(R.id.editText_master);
-        this.editText.setText(name, TextView.BufferType.EDITABLE);
+        editText = (EditText) findViewById(R.id.editText_master);
+        editText.setText(name, TextView.BufferType.EDITABLE);
 
         // Rede
         name = this.mySettings.getString("pref_rede", "");
-        this.editText = (EditText) findViewById(R.id.editText_rede);
-        this.editText.setText(name, TextView.BufferType.EDITABLE);
+        editText = (EditText) findViewById(R.id.editText_rede);
+        editText.setText(name, TextView.BufferType.EDITABLE);
     }
 }

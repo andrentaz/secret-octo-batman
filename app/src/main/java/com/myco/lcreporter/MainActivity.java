@@ -1,25 +1,20 @@
 package com.myco.lcreporter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.app.DialogFragment;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private SharedPreferences mySettings;
-    private EditText editText;
-    private Intent nextActivityIntent = new Intent(this, EqpActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +65,17 @@ public class MainActivity extends ActionBarActivity {
         String leaderName, coleaderName, lt1Name, hostName;
 
         /* Getting User Input */
-        this.editText = (EditText) findViewById(R.id.editText_lider);
-        leaderName = this.editText.getText().toString();
+        EditText editText = (EditText) findViewById(R.id.editText_lider);
+        leaderName = editText.getText().toString();
 
-        this.editText = (EditText) findViewById(R.id.editText_colider);
-        coleaderName = this.editText.getText().toString();
+        editText = (EditText) findViewById(R.id.editText_colider);
+        coleaderName = editText.getText().toString();
 
-        this.editText = (EditText) findViewById(R.id.editText_lt1);
-        lt1Name = this.editText.getText().toString();
+        editText = (EditText) findViewById(R.id.editText_lt1);
+        lt1Name = editText.getText().toString();
 
-        this.editText = (EditText) findViewById(R.id.editText_host);
-        hostName = this.editText.getText().toString();
+        editText = (EditText) findViewById(R.id.editText_host);
+        hostName = editText.getText().toString();
 
         /* Changing the preferences using a SharedPreferences Object */
         this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -98,7 +93,8 @@ public class MainActivity extends ActionBarActivity {
 
 
         /* Changing the activity */
-        this.startActivity(this.nextActivityIntent);
+        Intent nextActivityIntent = new Intent(this, EqpActivity.class);
+        startActivity(nextActivityIntent);
     }
 
 

@@ -41,6 +41,14 @@
                 android:value="com.myco.lcreporter.MainActivity" />
         </activity>
 
+        <activity android:name=".SheepActivity"
+            android:label="@string/title_activity_sheep"
+            android:parentActivityName=".EqpActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.myco.lcreporter.EqpActivity" />
+        </activity>
+
     </application>
 
 </manifest>
