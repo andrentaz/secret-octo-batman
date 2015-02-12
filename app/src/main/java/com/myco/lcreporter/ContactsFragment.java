@@ -57,9 +57,39 @@ public class ContactsFragment extends Fragment
     Uri mContactUri;
     // An adapter that binds the result Cursor to the ListView
     private SimpleCursorAdapter mCursorAdapter;
+
+    @SuppressLint("InlinedApi")
+    private static final String[] PROJECTION =
+            {
+                    ContactsContract.Contacts._ID,
+                    ContactsContract.Contacts.LOOKUP_KEY,
+                    Build.VERSION.SDK_INT
+                            >= Build.VERSION_CODES.HONEYCOMB ?
+                            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+                            ContactsContract.Contacts.DISPLAY_NAME
+            };
+    // The column index for the _ID column
+    private static final int CONTACT_ID_INDEX = 0;
+    // The column index for the LOOKUP_KEY column
+    private static final int LOOKUP_KEY_INDEX = 1;
+
+    // Defines the text expression
+    @SuppressLint("InlinedApi")
+    private static final String SELECTION =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?" :
+                    ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?";
+    // Defines a variable for the search string
+    private String mSearchString;
+    // Defines the array to hold values that replace the ?
+    private String[] mSelectionArgs = { mSearchString };
+
+    /* ------------------------------------------------------------------------------------------ */
     /* ------------------------------------------------------------------------------------------ */
 
-    // Default Constructor
+
+
+    /* Default Constructor */
     public ContactsFragment() {}
 
     /* Call back when the Fragment is created, it inflates the Contact List */
@@ -70,6 +100,40 @@ public class ContactsFragment extends Fragment
         return inflater.inflate(R.layout.contacts_list_veiw, container, false);
     }
 
+
+    /** On Activity Create tells the fragment that its activity
+     * has completed its own Activity.onCreate()
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // Get the ListView from the View list of the parent Activity
+        mContactsList =
+                (ListView) getActivity().findViewById(R.layout.contacts_list_veiw);
+
+        // Gets a CursorAdapter
+        mCursorAdapter = new SimpleCursorAdapter(
+                getActivity(),
+                R.layout.contacts_list_item,
+                null,
+                FROM_COLUMS, TO_IDS,
+                0
+        );
+
+        // Sets the adapter for the ListView
+        mContactsList.setAdapter(mCursorAdapter);
+
+        // Set the item click listener to be the current fragment.
+        mContactsList.setOnItemClickListener(this);
+
+        // Initializes the loader
+        getLoaderManager().initLoader(0, null, this);
+
+    }
+
+
+    /* ------------------------------------------------------------------------------------------ */
     /* ------------------------------------------------------------------------------------------ */
 
     /* LoaderCallbacks Methods */
@@ -91,6 +155,21 @@ public class ContactsFragment extends Fragment
     /* OnItemClickListener Methods */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            // Get the Cursor
+            Cursor cursor = parent.getAdapter().getCursor();
+            // Move to the selected contact
+            cursor.moveToPosition(position);
+            // Get the _ID value
+            mContactId = getLong(CONTACT_ID_INDEX);
+            // Get the selected LOOKUP KEY
+            mContactKey = getString(CONTACT_KEY_INDEX);
+            // Create the contact's content Uri
+            mContactUri = ContactsContract.Contacts.getLookupUri(mContactId, mContactKey);
+        /*
+         * You can use mContactUri as the content URI for retrieving
+         * the details for a contact.
+         */
     }
+
+
 }

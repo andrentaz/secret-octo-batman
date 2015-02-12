@@ -96,7 +96,6 @@ public class MainActivity extends ActionBarActivity {
         editor.commit();
 
 
-
         /* Changing the activity */
         Intent intent = new Intent(this, EqpActivity.class);
         this.startActivity(intent);
