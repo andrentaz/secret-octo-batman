@@ -49,4 +49,8 @@
     <string name="pref_summ_colider">Co resposável pela célula e suas atividades</string>
     <string name="pref_summ_lt1">Discípulo em processo de formação para assumir uma liderança</string>
 
+    <!-- Item Layout -->
+    <string name="item_firstLine">Nome</string>
+    <string name="item_secondLine">Telefone</string>
+
 </resources>

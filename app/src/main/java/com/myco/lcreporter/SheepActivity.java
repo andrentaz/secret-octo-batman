@@ -18,12 +18,16 @@ import java.util.ArrayList;
  */
 public class SheepActivity extends ActionBarActivity {
     private static final int PICK_CONTACT = 0;
-    private ArrayList<String> contactsList;
+    private String[] names, numbers;
+    private ContactsAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sheep);
+        // Set list
+        adapter = new ContactsAdapter(this, names, numbers);
+
     }
 
     @Override
