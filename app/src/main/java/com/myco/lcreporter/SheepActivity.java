@@ -1,11 +1,10 @@
 package com.myco.lcreporter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  * Created by nakagaki on 11/02/2015.
  * Activity that collects the data of the people that was in the meeting.
  */
-public class SheepActivity extends Activity {
+public class SheepActivity extends ActionBarActivity {
     private static final int PICK_CONTACT = 0;
     private ArrayList<String> contactsList;
 
