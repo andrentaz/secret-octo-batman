@@ -53,8 +53,8 @@ public class SheepActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Cursor cursor;
-        String name, number;
-        int nameIndex, numberIndex;
+        String name, number = "No Number!";
+        int nameIndex, idIndex, hasNumber;
 
 
         /* Check the data */
@@ -67,18 +67,42 @@ public class SheepActivity extends ActionBarActivity {
                             null, null, null, null);
 
                     while (cursor.moveToNext()) {
-                        // Get the data
+                        // Get the Indexes
                         nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+                        idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID);
+                        hasNumber = cursor.getColumnIndex(
+                                ContactsContract.Contacts.HAS_PHONE_NUMBER);
+
+                        // Get the data
                         name = cursor.getString(nameIndex);
 
-                        /* column = cursor.getColumnIndex(ContactsContract.Contacts.);
-                        number = cursor.getString(column); */
+                        if (Integer.parseInt(cursor.getString(hasNumber)) > 0)
+                            number = queryNumber(cursor.getString(idIndex));
 
-                        Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG).show();
                     }
                     cursor.close();
                 }
         }
+    }
+
+    private String queryNumber(String id) {
+        String number = "No Contact Number";
+        Cursor cur = getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                null,
+                ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",
+                new String[]{id},
+                null
+        );
+
+        while (cur.moveToNext()) {
+            number = cur.getString(
+                    cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+            );
+        }
+
+        return number;
     }
 
     /* ------------------------------------------------------------------------------------------ */
