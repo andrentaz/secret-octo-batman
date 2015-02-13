@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,35 +28,56 @@ public class SheepActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Uri contactUri;
-        Cursor cursor;
-        String[] projection = {ContactsContract.Data._ID,
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                ContactsContract.CommonDataKinds.Phone.NUMBER
-        };
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_sheep, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent settingIntent = new Intent(this, SettingsActivity.class);
+                this.startActivity(settingIntent);
+                return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Cursor cursor;
         String name, number;
-        int column;
+        int nameIndex, numberIndex;
+
 
         /* Check the data */
         switch (requestCode) {
             case PICK_CONTACT:      // Pegou o contato
                 if (resultCode == RESULT_OK) {
                     // Query the databank
-                    contactUri = data.getData();
-                    cursor = getContentResolver().query(contactUri, projection, null, null, null);
-                    cursor.moveToFirst();
 
-                    // Get the data
-                    column = cursor.getColumnIndex(
-                            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-                    name = cursor.getString(column);
+                    cursor = getContentResolver().query(data.getData(),
+                            null, null, null, null);
 
-                    column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-                    number = cursor.getString(column);
+                    while (cursor.moveToNext()) {
+                        // Get the data
+                        nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+                        name = cursor.getString(nameIndex);
 
-                    Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG);
+                        /* column = cursor.getColumnIndex(ContactsContract.Contacts.);
+                        number = cursor.getString(column); */
+
+                        Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
+                    }
+                    cursor.close();
                 }
         }
     }
