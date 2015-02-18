@@ -13,18 +13,19 @@ import java.util.List;
  * Created by Gabriel on 14/02/2015.
  */
 public class ContactListFragment extends ListFragment {
-    private List<Contact> mItems;
+    private List<Sheep> mItems;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Inicialize the item list
-        mItems = new ArrayList<Contact>();
-        mItems.add(new Contact("Andre", "+55 11 981545569"));
+        mItems = new ArrayList<Sheep>();
+        mItems.add(new Sheep("Andre", "+55 11 981545569"));
+        mItems.add(new Sheep("Igor", "+55 11 970358511"));
 
         // Inicialize and set the adapter
-        setListAdapter(new ContactsAdapter(getActivity(), mItems));
+        setListAdapter(new ContactAdapter(getActivity(), mItems));
     }
 
     @Override

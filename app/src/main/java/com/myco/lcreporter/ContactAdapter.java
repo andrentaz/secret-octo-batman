@@ -7,20 +7,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
  * Created by nakagaki on 13/02/2015.
  */
-public class ContactsAdapter extends ArrayAdapter<Contact> {
+public class ContactAdapter extends ArrayAdapter<Sheep> {
 
     /**
      * Creates an instance adapter, set all the values in the list
      */
-    public ContactsAdapter(Context context, List<Contact> items) {
-        super(context, R.layout.contact_list_item, items);
+    public ContactAdapter(Context context, List<Sheep> items) {
+        super(context, R.layout.item_contacts_list, items);
     }
 
     @Override
@@ -30,7 +28,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         if (convertView == null) {
             // Inflate the GridView Item Layout
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.contact_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_contacts_list, parent, false);
 
             // Inicialize the View Holder
             viewHolder = new ViewHolder();
@@ -43,7 +41,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         }
 
         // Muda os valores do item
-        Contact item = getItem(position);
+        Sheep item = getItem(position);
         viewHolder.getTvName().setText(item.getName());
         viewHolder.getTvNumber().setText(item.getNumber());
 

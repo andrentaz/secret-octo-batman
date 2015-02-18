@@ -24,6 +24,7 @@ public class SheepActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sheep);
 
+        // Inflate the ListView fragment
         ContactListFragment clfragment = new ContactListFragment();
         getFragmentManager().beginTransaction()
                 .add(R.id.fragment_list_container, clfragment).commit();
@@ -90,7 +91,7 @@ public class SheepActivity extends ActionBarActivity {
     }
 
     private String queryNumber(String id) {
-        String number = "No Contact Number";
+        String number = "No Number";
         Cursor cur = getContentResolver().query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null,
