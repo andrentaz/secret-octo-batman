@@ -17,7 +17,8 @@ import android.widget.EditText;
  * Activity that collects the data of the people that was in the meeting.
  */
 public class SheepActivity extends ActionBarActivity
-        implements PeopleDialogFragment.PeopleDialogListener{
+        implements  PeopleDialogFragment.PeopleDialogListener,
+                    DeletionDialogFragment.DeletionDialogListener{
     private static final int PICK_CONTACT = 0;
     private ContactListFragment clfragment = new ContactListFragment();
 
@@ -149,13 +150,13 @@ public class SheepActivity extends ActionBarActivity
      */
     public void addPeople(View view) {
         PeopleDialogFragment newfragg = new PeopleDialogFragment();
-        newfragg.show(getFragmentManager(), "tag");
+        newfragg.show(getFragmentManager(), "PeopleDialogTag");
     }
 
     /* ------------------------------------------------------------------------------------------ */
     /* Interface Listener methods */
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
+    public void onPeopleDialogPositiveClick(DialogFragment dialog) {
         // User pressed OK, so we need to grab the values from the
         // dialog's fields and apply them to the Views in the Main
         // Activity
@@ -169,10 +170,22 @@ public class SheepActivity extends ActionBarActivity
                 )
         );
 
+        dialog.dismiss();
     }
 
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
+    public void onPeopleDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDeletionDialogPositiveClick(DialogFragment dialog, int position) {
+        this.clfragment.removeSheep(position);
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDeletionDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
     }
 

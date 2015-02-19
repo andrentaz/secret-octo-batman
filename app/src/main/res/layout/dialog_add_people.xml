@@ -5,7 +5,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:text="@string/dialog_title"
+        android:text="@string/dialog_addPeople_title"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:scaleType="center"

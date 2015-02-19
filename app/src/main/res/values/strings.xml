@@ -56,8 +56,11 @@
     <!-- Add People Dialog -->
     <string name="dialog_username">Nome</string>
     <string name="dialog_celphone">Telefone</string>
-    <string name="dialog_title">ADICIONAR PESSOA</string>
+    <string name="dialog_addPeople_title">ADICIONAR PESSOA</string>
     <string name="dialog_add_people">Adicionar</string>
-    <string name="dialog_cancel_people">Cancelar</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="dialog_delete_people">Remover</string>
+    <string name="dialog_deletePeople_title">Remover</string>
+    <string name="dialog_deletePeople_message">Deseja remover esta pessoa do relatório?</string>
 
 </resources>

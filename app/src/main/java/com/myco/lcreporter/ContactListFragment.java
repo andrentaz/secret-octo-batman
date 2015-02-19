@@ -15,6 +15,7 @@ import java.util.List;
  * Class that inflates the list layout
  */
 public class ContactListFragment extends ListFragment {
+    public static final String ARG_POSITION = "com.myco.lcreporter.ContactsListFragment.POSITION";
     private List<Sheep> mItems;
     private ContactAdapter adapter;
 
@@ -40,9 +41,22 @@ public class ContactListFragment extends ListFragment {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void removeSheep(int position) {
         mItems.remove(position);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // Send the position
+        Bundle bundle = new Bundle();
+        bundle.putInt(this.ARG_POSITION, position );
+
+        // Creates the fragment dialog
+        DeletionDialogFragment newfragg = new DeletionDialogFragment();
+        newfragg.setArguments(bundle);
+
+        // Show the Dialog
+        newfragg.show(getFragmentManager(), "DeletionDialogTag");
     }
 }
