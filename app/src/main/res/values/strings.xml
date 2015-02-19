@@ -53,4 +53,11 @@
     <string name="item_firstLine">Nome</string>
     <string name="item_secondLine">Telefone</string>
 
+    <!-- Add People Dialog -->
+    <string name="dialog_username">Nome</string>
+    <string name="dialog_celphone">Telefone</string>
+    <string name="dialog_title">ADICIONAR PESSOA</string>
+    <string name="dialog_add_people">Adicionar</string>
+    <string name="dialog_cancel_people">Cancelar</string>
+
 </resources>

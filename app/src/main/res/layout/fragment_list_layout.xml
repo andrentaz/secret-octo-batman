@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/buttons_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:text="@string/button_addContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addContact"/>
+
+        <Button
+            android:text="@string/button_addPeople"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addPeople" />
+
+        <Button
+            android:text="@string/button_fill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="fillReport" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="438dp"
+        android:nestedScrollingEnabled="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/buttons_container" />
 
-</LinearLayout>
+</RelativeLayout>

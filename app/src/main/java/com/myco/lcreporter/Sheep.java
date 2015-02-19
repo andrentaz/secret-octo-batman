@@ -19,4 +19,15 @@ public class Sheep {
     public String getNumber() {
         return number;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Sheep obj = (Sheep) o;
+
+        if (this.getName() == obj.getName())
+            if (this.getNumber() == obj.getNumber())
+                return true;
+
+        return false;
+    }
 }

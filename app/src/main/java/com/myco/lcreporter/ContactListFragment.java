@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Gabriel on 14/02/2015.
+ * Created by Andre on 14/02/2015.
+ * Class that inflates the list layout
  */
 public class ContactListFragment extends ListFragment {
     private List<Sheep> mItems;
+    private ContactAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,15 +24,25 @@ public class ContactListFragment extends ListFragment {
 
         // Inicialize the item list
         mItems = new ArrayList<Sheep>();
-        mItems.add(new Sheep("Andre", "+55 11 981545569"));
-        mItems.add(new Sheep("Igor", "+55 11 970358511"));
 
         // Inicialize and set the adapter
-        setListAdapter(new ContactAdapter(getActivity(), mItems));
+        adapter = new ContactAdapter(getActivity(), mItems);
+        setListAdapter(adapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_list_layout, container, false);
+    }
+
+    public void addSheep(Sheep sheep) {
+        mItems.add(sheep);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        mItems.remove(position);
+        adapter.notifyDataSetChanged();
     }
 }
