@@ -19,8 +19,11 @@ import android.widget.EditText;
 public class SheepActivity extends ActionBarActivity
         implements  PeopleDialogFragment.PeopleDialogListener,
                     DeletionDialogFragment.DeletionDialogListener{
+
     private static final int PICK_CONTACT = 0;
     private ContactListFragment clfragment = new ContactListFragment();
+    private Sheep cacheSheep;
+    private int cachePos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -154,6 +157,33 @@ public class SheepActivity extends ActionBarActivity
     }
 
     /* ------------------------------------------------------------------------------------------ */
+
+    /**
+     * Show the Undo Toast after the user remove someone from the list
+     * @param viewContainer
+     */
+    public static void showUndoToast(final View viewContainer) {
+            viewContainer.setVisibility(View.VISIBLE);
+            viewContainer.setAlpha(1);
+            viewContainer.animate().alpha(0.4f).setDuration(5000)
+                .withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    viewContainer.setVisibility(View.GONE);
+                }
+            });
+    }
+
+    /**
+     * Undo the removal of the people
+     * @param view
+     */
+    public void undoRemove(View view) {
+        this.clfragment.insertSheep(this.cachePos, this.cacheSheep);
+        findViewById(R.id.undobar).setVisibility(View.GONE);
+    }
+
+    /* ------------------------------------------------------------------------------------------ */
     /* Interface Listener methods */
     @Override
     public void onPeopleDialogPositiveClick(DialogFragment dialog) {
@@ -180,8 +210,11 @@ public class SheepActivity extends ActionBarActivity
 
     @Override
     public void onDeletionDialogPositiveClick(DialogFragment dialog, int position) {
+        this.cacheSheep = this.clfragment.getSheep(position);
+        this.cachePos = position;
         this.clfragment.removeSheep(position);
         dialog.dismiss();
+        this.showUndoToast(findViewById(R.id.undobar));
     }
 
     @Override

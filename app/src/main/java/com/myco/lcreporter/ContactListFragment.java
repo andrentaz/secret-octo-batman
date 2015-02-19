@@ -15,6 +15,7 @@ import java.util.List;
  * Class that inflates the list layout
  */
 public class ContactListFragment extends ListFragment {
+
     public static final String ARG_POSITION = "com.myco.lcreporter.ContactsListFragment.POSITION";
     private List<Sheep> mItems;
     private ContactAdapter adapter;
@@ -32,19 +33,52 @@ public class ContactListFragment extends ListFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_list_layout, container, false);
     }
 
+    /* ------------------------------------------------------------------------------------------ */
+
+    /**
+     * Add an element in the ListView
+     * @param sheep
+     */
     public void addSheep(Sheep sheep) {
         mItems.add(sheep);
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Remove an element from the ListView
+     * @param position
+     */
     public void removeSheep(int position) {
         mItems.remove(position);
         adapter.notifyDataSetChanged();
     }
+
+    /**
+     * Returns an element from the position passed as a parameter
+     * @param position
+     * @return item in the position
+     */
+    public Sheep getSheep(int position) {
+        return this.mItems.get(position);
+    }
+
+    /**
+     * Insert an element in the ListView in the passed position
+     * @param cachePos
+     * @param cacheSheep
+     */
+    public void insertSheep(int cachePos, Sheep cacheSheep) {
+        this.mItems.add(cachePos, cacheSheep);
+    }
+
+    /* ------------------------------------------------------------------------------------------ */
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
