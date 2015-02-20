@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,25 +13,44 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
                 implements DatePickerFragment.DatePickerListener {
 
+    public static final int NUM_PAGES = 3;
     private SharedPreferences mySettings;
+    private ViewPager mPager;            // Display the pages
+    private NucleoPagerAdapter mAdapter;    // Provide the pages to the ViewPager
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        // Instantiate a ViewPager and a PagerAdapter
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mAdapter = new NucleoPagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.getSettingsBoxes();
+        //this.getSettingsBoxes();
     }
 
     @Override

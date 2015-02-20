@@ -3,137 +3,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Area de Scroll -->
-    <ScrollView
-        android:layout_width="fill_parent"
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/button_fill"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" >
-        
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <!-- Lider Stuff -->
-            <TextView
-                android:text="@string/text_lider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                style="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="#444444"
-                android:textStyle="bold|italic" />
-
-            <!-- Future Edit to use the settings value -->
-            <EditText
-                android:id="@+id/editText_lider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/text_lider"
-
-                android:singleLine="true"
-                android:imeOptions="actionNext"
-                style="@android:style/TextAppearance.DeviceDefault.Large" />
-
-            <!-- *************************************************************************************** -->
-            <!-- Co Lider Stuff -->
-            <TextView
-                android:text="@string/text_colider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                style="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="#444444"
-                android:textStyle="bold|italic" />
-
-            <!-- Future Edit to use the settings value -->
-            <EditText
-                android:id="@+id/editText_colider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/text_colider"
-
-                android:focusable="true"
-                android:singleLine="true"
-                android:imeOptions="actionNext"
-                style="@android:style/TextAppearance.DeviceDefault.Large" />
-
-
-            <!-- *************************************************************************************** -->
-            <!-- Lider em Treinamento Stuff -->
-            <TextView
-                android:text="@string/text_lt1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                style="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="#444444"
-                android:textStyle="bold|italic" />
-
-            <!-- Future Edit to use the settings value -->
-            <EditText
-                android:id="@+id/editText_lt1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/text_lt1"
-
-                android:focusable="true"
-                android:singleLine="true"
-                android:imeOptions="actionNext"
-                style="@android:style/TextAppearance.DeviceDefault.Large" />
-
-
-            <!-- *************************************************************************************** -->
-            <!-- Hospedeiro Stuff -->
-            <TextView
-                android:text="@string/text_host"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                style="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="#444444"
-                android:textStyle="bold|italic" />
-
-            <!-- Future Edit to use the settings value -->
-            <EditText
-                android:id="@+id/editText_host"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/text_host"
-
-                android:focusable="true"
-                android:singleLine="true"
-                android:imeOptions="actionNext"
-                style="@android:style/TextAppearance.DeviceDefault.Large" />
-
-            <!-- *************************************************************************************** -->
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/button_date"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:onClick="showDatePickerDialog"
-                    android:text="@string/text_date" />
-
-                <Button
-                    android:id="@+id/button_next"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button_next"
-                    android:onClick="goEqpActivity" />
-
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-    </ScrollView>
+        android:text="@string/button_fill" />
 
 </LinearLayout>

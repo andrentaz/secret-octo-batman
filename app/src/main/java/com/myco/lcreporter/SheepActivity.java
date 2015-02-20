@@ -28,7 +28,7 @@ public class SheepActivity extends ActionBarActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sheep);
+        setContentView(R.layout.page_sheep);
 
         // Check if the Activity is using the container
         if (findViewById(R.id.fragment_list_container) != null){
