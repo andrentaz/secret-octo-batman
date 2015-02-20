@@ -56,7 +56,7 @@
             android:id="@+id/undobar_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deleted"
+            android:text="@string/toast_removed"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#fff" />
 
@@ -68,7 +68,7 @@
             android:onClick="undoRemove"
             android:background="#808080"
             android:drawableLeft="@drawable/ic_action_undo"
-            android:text="Undo"
+            android:text="@string/toast_undo"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#fff" />
     </LinearLayout>

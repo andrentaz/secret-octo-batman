@@ -27,6 +27,11 @@
             android:key="pref_host"
             android:defaultValue="@string/pref_hostName" />
 
+        <EditTextPreference
+            android:title="@string/text_date"
+            android:key="pref_date"
+            android:defaultValue="@string/pref_date" />
+
     </PreferenceCategory>
 
 

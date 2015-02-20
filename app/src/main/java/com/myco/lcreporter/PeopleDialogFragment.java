@@ -30,7 +30,7 @@ public class PeopleDialogFragment extends DialogFragment {
         super.onAttach(activity);
         // Verify that the host activity implements the callback interface
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
+            // Instantiate the PeopleDialogListener so we can send events to the host
             mListener = (PeopleDialogListener) activity;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception

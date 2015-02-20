@@ -3,7 +3,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <!-- Allowing scroll -->
     <ScrollView
         android:layout_width="fill_parent"

@@ -9,11 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity
+                implements DatePickerFragment.DatePickerListener {
 
     private SharedPreferences mySettings;
 
@@ -21,8 +24,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.getSettingsBoxes();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.getSettingsBoxes();
     }
 
     @Override
@@ -50,13 +58,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void showDatePickerDialog(View view) {
-        /*DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");*/
-
-        /* Creates the DatePickerActivity */
-        Intent datePickerIntent = new Intent(this, DatePickerActivity.class);
-        this.startActivity(datePickerIntent);
-
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
     }
 
     /* ------------------------------------------------------------------------------------------ */
@@ -89,7 +92,6 @@ public class MainActivity extends ActionBarActivity {
         editor.putString("pref_lt1", lt1Name);
         editor.putString("pref_host", hostName);
 
-        //Toast.makeText(getApplicationContext(), "Iniciando Nova Intent", Toast.LENGTH_LONG).show();
         // Commit
         editor.commit();
 
@@ -129,5 +131,26 @@ public class MainActivity extends ActionBarActivity {
         name = this.mySettings.getString("pref_host", "");
         editText = (EditText) findViewById(R.id.editText_host);
         editText.setText(name, TextView.BufferType.EDITABLE);
+
+        // Setting Button Text
+        Button button = (Button) findViewById(R.id.button_date);
+        name = this.mySettings.getString("pref_date", "");
+        button.setText(name);
+    }
+
+    @Override
+    public void onDateSetChange(String newDate) {
+        /* Changing the preferences using a SharedPreferences Object */
+        this.mySettings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        /* Changes and apply */
+        SharedPreferences.Editor editor = this.mySettings.edit();
+        editor.putString("pref_date", newDate);
+        editor.commit();
+
+        // Setting Button Text
+        Button button = (Button) findViewById(R.id.button_date);
+        String date = this.mySettings.getString("pref_date", "");
+        button.setText(date);
     }
 }

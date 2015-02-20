@@ -62,5 +62,8 @@
     <string name="dialog_delete_people">Remover</string>
     <string name="dialog_deletePeople_title">Remover</string>
     <string name="dialog_deletePeople_message">Deseja remover esta pessoa do relatório?</string>
+    <string name="toast_removed">Removido</string>
+    <string name="toast_undo">Desfazer</string>
+    <string name="pref_date">20/08/1991</string>
 
 </resources>
