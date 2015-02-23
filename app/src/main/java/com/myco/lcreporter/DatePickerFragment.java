@@ -3,8 +3,8 @@ package com.myco.lcreporter;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
 import java.util.Calendar;

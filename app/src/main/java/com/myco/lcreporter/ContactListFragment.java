@@ -1,12 +1,12 @@
 package com.myco.lcreporter;
 
-import android.app.ListFragment;
+
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,11 @@ import java.util.List;
  */
 public class ContactListFragment extends ListFragment {
 
-    public static final String ARG_POSITION = "com.myco.lcreporter.ContactsListFragment.POSITION";
+    public static final String ARG_POSITION =
+            "com.myco.lcreporter.ContactsListFragment.POSITION";
+    private static final String DELETION_DIALOG_TAG =
+            "com.myco.lcreporter.ContactisListFragment.DELETE";
+
     private List<Sheep> mItems;
     private ContactAdapter adapter;
 
@@ -87,10 +91,10 @@ public class ContactListFragment extends ListFragment {
         bundle.putInt(this.ARG_POSITION, position );
 
         // Creates the fragment dialog
-        DeletionDialogFragment newfragg = new DeletionDialogFragment();
-        newfragg.setArguments(bundle);
+        DeletionDialogFragment newfrag = new DeletionDialogFragment();
+        newfrag.setArguments(bundle);
 
         // Show the Dialog
-        newfragg.show(getFragmentManager(), "DeletionDialogTag");
+        newfrag.show(getFragmentManager(), DELETION_DIALOG_TAG);
     }
 }

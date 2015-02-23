@@ -4,19 +4,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.List;
-
 /**
  * Created by nakagaki on 20/02/2015.
  */
 public class NucleoPagerAdapter extends FragmentPagerAdapter {
 
-    private Fragment[] mScreen = new Fragment[2];
+    private Fragment[] mScreen = new Fragment[MainActivity.NUM_PAGES];
 
     public NucleoPagerAdapter(FragmentManager fm) {
         super(fm);
         mScreen[0] = new MainFragment();
         mScreen[1] = new EqpFragment();
+        mScreen[2] = new ContactListFragment();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.myco.lcreporter;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -39,7 +39,7 @@ public class SheepActivity extends ActionBarActivity
             }
 
             // Inflate the ListView fragment case not
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_list_container, clfragment).commit();
         }
     }
@@ -152,8 +152,8 @@ public class SheepActivity extends ActionBarActivity
      * @param view
      */
     public void addPeople(View view) {
-        PeopleDialogFragment newfragg = new PeopleDialogFragment();
-        newfragg.show(getFragmentManager(), "PeopleDialogTag");
+        PeopleDialogFragment newfrag = new PeopleDialogFragment();
+        newfrag.show(getSupportFragmentManager(), "PeopleDialogTag");
     }
 
     /* ------------------------------------------------------------------------------------------ */
