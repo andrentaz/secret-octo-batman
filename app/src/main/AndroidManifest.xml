@@ -26,29 +26,6 @@
             android:label="LCReporter_Settings" >
         </activity>
 
-        <activity
-            android:name=".DatePickerActivity"
-            android:label="LCReporter_DatePicker" >
-        </activity>
-
-        <activity
-            android:name=".EqpActivity"
-            android:label="@string/title_activity_eqp"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.myco.lcreporter.MainActivity" />
-        </activity>
-
-        <activity android:name=".SheepActivity"
-            android:label="@string/title_activity_sheep"
-            android:parentActivityName=".EqpActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.myco.lcreporter.EqpActivity" />
-        </activity>
-
     </application>
 
 </manifest>

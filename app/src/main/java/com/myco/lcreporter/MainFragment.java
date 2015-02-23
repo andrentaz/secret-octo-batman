@@ -57,9 +57,9 @@ public class MainFragment extends Fragment {
         editText.setText(name, TextView.BufferType.EDITABLE);
 
         // Setting Button Text
-        Button button = (Button) mView.findViewById(R.id.button_date);
+        TextView textView = (TextView) mView.findViewById(R.id.textclk_date);
         name = this.mySettings.getString("pref_date", "");
-        button.setText(name);
+        textView.setText(name);
     }
 
     public void setSettInfo() {

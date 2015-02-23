@@ -107,12 +107,17 @@
                 style="@android:style/TextAppearance.DeviceDefault.Large" />
 
             <!-- *************************************************************************************** -->
-                <Button
-                    android:id="@+id/button_date"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textclk_date"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:onClick="showDatePickerDialog"
-                    android:text="@string/text_date" />
+                    android:text="@string/text_date"
+                    android:layout_gravity="center"
+                    style="@android:style/TextAppearance.DeviceDefault.Large.Inverse"
+                    android:textStyle="bold"
+                    android:textColor="#ff2e4662" />
 
         </LinearLayout>
     </ScrollView>

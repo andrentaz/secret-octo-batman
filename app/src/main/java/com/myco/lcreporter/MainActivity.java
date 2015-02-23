@@ -1,21 +1,21 @@
 package com.myco.lcreporter;
 
-import android.os.Bundle;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.database.Cursor;
-import android.provider.ContactsContract;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity
@@ -47,6 +47,9 @@ public class MainActivity extends ActionBarActivity
         mPager = (ViewPager) findViewById(R.id.pager);
         mAdapter = new NucleoPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mAdapter);
+
+        // Set the Default Values of the Settings
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
     @Override
@@ -149,16 +152,6 @@ public class MainActivity extends ActionBarActivity
         newFragment.show(getSupportFragmentManager(), DATE_PICKER_TAG);
     }
 
-
-    public void goSheepActivity(View view) {
-        // Set the new Settings info
-        this.mAdapter.setInfo();
-
-        /* Going next */
-        Intent nextActivityIntent = new Intent(this, SheepActivity.class);
-        startActivity(nextActivityIntent);
-    }
-
     @Override
     public void onDateSetChange(String newDate) {
         /* Changing the preferences using a SharedPreferences Object */
@@ -170,9 +163,9 @@ public class MainActivity extends ActionBarActivity
         editor.commit();
 
         // Setting Button Text
-        Button button = (Button) findViewById(R.id.button_date);
+        TextView textView = (TextView) findViewById(R.id.textclk_date);
         String date = this.mySettings.getString("pref_date", "");
-        button.setText(date);
+        textView.setText(date);
     }
 
     /* ------------------------------------------------------------------------------------------ */
