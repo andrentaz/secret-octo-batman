@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +19,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 public class MainActivity extends ActionBarActivity
         implements  DatePickerFragment.DatePickerListener,
                     PeopleDialogFragment.PeopleDialogListener,
-                    DeletionDialogFragment.DeletionDialogListener {
+                    DeletionDialogFragment.DeletionDialogListener,
+                    ActionBar.TabListener {
 
     // Constants
     private static final String DATE_PICKER_TAG = "com.myco.lcreporter.MainActivity.Date_Picker";
@@ -37,20 +39,64 @@ public class MainActivity extends ActionBarActivity
     private Sheep cacheSheep;
     private int cachePos;
 
+    // Attributes - Tabs
+    private String[] tabs = { "Núcleo", "Equipe", "Ovelhas" };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-        // Instantiate a ViewPager and a PagerAdapter
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mAdapter = new NucleoPagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mAdapter);
+        setContentView(R.layout.activity_main);
 
         // Set the Default Values of the Settings
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        // Create the adapter that will return the Fragments
+        this.mAdapter = new NucleoPagerAdapter(getSupportFragmentManager());
+
+        // Setup the Action Bar
+        final ActionBar actionBar = getSupportActionBar();
+
+        // Specify that the Home/Up button should not be enabled, since there is no hierarchical
+        // parent
+        //actionBar.setHomeButtonEnabled(false);
+
+        // Specify that we will be displaying tabs in the action bar.
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        // Set up the ViewPager, attaching the adapter and setting up a listener for when the
+        // user swipes between sections.
+        this.mPager = (ViewPager) findViewById(R.id.pager);
+        this.mPager.setAdapter(this.mAdapter);
+        this.mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // When swiping between different app sections, select the corresponding tab.
+                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
+                // Tab.
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
+        for (String temp: tabs) {
+            actionBar.addTab(actionBar.newTab().setText(temp).setTabListener(this));
+        }
+
     }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        // When the given tab is selected, switch to the corresponding page in the ViewPager
+        mPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+
+
 
     @Override
     public void onBackPressed() {
