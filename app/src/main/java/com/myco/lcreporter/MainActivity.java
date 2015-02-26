@@ -2,6 +2,7 @@ package com.myco.lcreporter;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -19,6 +20,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.Drive;
+
 public class MainActivity extends ActionBarActivity
         implements  DatePickerFragment.DatePickerListener,
                     PeopleDialogFragment.PeopleDialogListener,
@@ -29,6 +35,7 @@ public class MainActivity extends ActionBarActivity
     private static final String DATE_PICKER_TAG = "com.myco.lcreporter.MainActivity.Date_Picker";
     public static final int NUM_PAGES = 3;
     private static final int PICK_CONTACT = 0;
+    private static final int RESOLVE_CONNECTION_REQUEST_CODE = 1;
 
     // Attributes - Pager
     private SharedPreferences mySettings;   // Preferences
@@ -41,6 +48,9 @@ public class MainActivity extends ActionBarActivity
 
     // Attributes - Tabs
     private String[] tabs = { "Núcleo", "Equipe", "Ovelhas" };
+
+    // Google API
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +92,15 @@ public class MainActivity extends ActionBarActivity
             actionBar.addTab(actionBar.newTab().setText(temp).setTabListener(this));
         }
 
+
+        // Google API Client
+        // Google Drive API
+        this.mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Drive.API)
+                .addScope(Drive.SCOPE_FILE)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
     }
 
     @Override
@@ -95,6 +114,30 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+
+
+    /* ------------------------------------------------------------------------------------------ */
+    /* Google API Stuff */
+    // Change to Connect when start the application
+    @Override
+    protected void onStart() {
+        super.onStart();
+        this.mGoogleApiClient.connect();
+    }
+
+    // If connection failed
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(this, RESOLVE_CONNECTION_REQUEST_CODE);
+            } catch (IntentSender.SendIntentException e) {
+                // Unable to resolve, message user appropriately
+            }
+        } else {
+            GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
+        }
+    }
 
 
 
@@ -170,6 +213,12 @@ public class MainActivity extends ActionBarActivity
                     }
                     cursor.close();
                 }
+                break;
+            case RESOLVE_CONNECTION_REQUEST_CODE:
+                if (resultCode == RESULT_OK) {
+                    this.mGoogleApiClient.connect();
+                }
+                break;
         }
     }
 
