@@ -3,6 +3,7 @@
 
     <!-- Inicial Setup Strings -->
     <string name="app_name">LCReporter</string>
+    <string name="action_share">Compartilhar</string>
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_sheep">SheepActivity</string>
@@ -65,5 +66,6 @@
     <string name="toast_removed">Removido</string>
     <string name="toast_undo">Desfazer</string>
     <string name="pref_date">20/08/1991</string>
+    <string name="sendCsvFile">Compartilhar Via:</string>
 
 </resources>

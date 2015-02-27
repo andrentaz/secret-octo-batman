@@ -82,6 +82,11 @@ public class ContactListFragment extends ListFragment {
         this.mItems.add(cachePos, cacheSheep);
     }
 
+    public String getSheepInfo(int pos) {
+        Sheep temp = this.mItems.get(pos);
+        return "\"" + temp.getName() + "\"," + "\"" + temp.getNumber() + "\"";
+    }
+
     /* ------------------------------------------------------------------------------------------ */
 
     @Override
@@ -96,5 +101,9 @@ public class ContactListFragment extends ListFragment {
 
         // Show the Dialog
         newfrag.show(getFragmentManager(), DELETION_DIALOG_TAG);
+    }
+
+    public int getSize() {
+        return this.mItems.size();
     }
 }
