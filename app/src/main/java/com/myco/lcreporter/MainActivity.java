@@ -3,12 +3,16 @@ package com.myco.lcreporter;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -18,6 +22,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
 
 public class MainActivity extends ActionBarActivity
         implements  DatePickerFragment.DatePickerListener,
@@ -38,9 +49,11 @@ public class MainActivity extends ActionBarActivity
     // Attributes - List Contacts
     private Sheep cacheSheep;
     private int cachePos;
+    private ContactListFragment mListFrag;
 
     // Attributes - Tabs
     private String[] tabs = { "Núcleo", "Equipe", "Ovelhas" };
+    private CsvFormatter mFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +95,9 @@ public class MainActivity extends ActionBarActivity
             actionBar.addTab(actionBar.newTab().setText(temp).setTabListener(this));
         }
 
+        // Set the third fragment and the formatter
+        this.mListFrag = (ContactListFragment) this.mAdapter.getItem(2);
+        this.mFormatter = new CsvFormatter();
     }
 
     @Override
@@ -128,10 +144,65 @@ public class MainActivity extends ActionBarActivity
                 Intent settingIntent = new Intent(this, SettingsActivity.class);
                 this.startActivity(settingIntent);
                 return super.onOptionsItemSelected(item);
+
+            case R.id.action_share:
+                this.shareReport();
+                return super.onOptionsItemSelected(item);
+
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    public void shareReport() {
+        String temp, dataString;
+        int size = this.mListFrag.getSize();
+
+        // Creates the CSV Text
+        for (int i=0; i<size; i++) {
+            temp = (i+1) + ", " + this.mListFrag.getSheepInfo(i);
+            this.mFormatter.addRow(temp);
+        }
+        dataString = this.mFormatter.toString();
+        this.mFormatter.erase();
+
+        // Write in a Temp file
+        File file = new File(getCacheDir() + File.separator + "Report.csv");
+        FileOutputStream out = null;
+
+        try {
+            out = new FileOutputStream(file);
+            out.write(dataString.getBytes());
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Creates the Implicit Intent
+        Uri csv = FileProvider.getUriForFile(getApplicationContext(), "com.myco.lcreporter", file);
+        grantUriPermission("com.myco.lcreporter", csv, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        Toast.makeText(getApplicationContext(), csv.getPath(), Toast.LENGTH_LONG).show();
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, csv);
+        sendIntent.setType("text/csv");
+
+        // Sets the Info in the Settings
+        this.mAdapter.setInfo();
+
+        // Start Intent
+        if (getPackageManager().queryIntentActivities(
+                sendIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            startActivity(Intent.createChooser(sendIntent,
+                    getResources().getString(R.string.sendCsvFile)));
+        }
+
+        revokeUriPermission(csv, Intent.FLAG_GRANT_READ_URI_PERMISSION);
     }
 
     /* ------------------------------------------------------------------------------------------ */
@@ -166,7 +237,7 @@ public class MainActivity extends ActionBarActivity
 
                         //Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG).show();
                         Sheep sheep = new Sheep(name, number);
-                        ((ContactListFragment) this.mAdapter.getItem(2)).addSheep(sheep);
+                        this.mListFrag.addSheep(sheep);
                     }
                     cursor.close();
                 }
@@ -261,7 +332,7 @@ public class MainActivity extends ActionBarActivity
      * @param view
      */
     public void undoRemove(View view) {
-        ((ContactListFragment) this.mAdapter.getItem(2)).insertSheep(this.cachePos, this.cacheSheep);
+        this.mListFrag.insertSheep(this.cachePos, this.cacheSheep);
         findViewById(R.id.undobar).setVisibility(View.GONE);
     }
 
@@ -276,7 +347,7 @@ public class MainActivity extends ActionBarActivity
         EditText userView = (EditText) dialogView.findViewById(R.id.dialog_username);
         EditText numberView = (EditText) dialogView.findViewById(R.id.dialog_cellphone);
 
-        ((ContactListFragment) this.mAdapter.getItem(2)).addSheep(new Sheep(
+        this.mListFrag.addSheep(new Sheep(
                         userView.getText().toString(),
                         numberView.getText().toString()
                 )
@@ -292,9 +363,9 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onDeletionDialogPositiveClick(DialogFragment dialog, int position) {
-        this.cacheSheep = ((ContactListFragment) this.mAdapter.getItem(2)).getSheep(position);
+        this.cacheSheep = this.mListFrag.getSheep(position);
         this.cachePos = position;
-        ((ContactListFragment) this.mAdapter.getItem(2)).removeSheep(position);
+        this.mListFrag.removeSheep(position);
         dialog.dismiss();
         this.showUndoToast(findViewById(R.id.undobar));
     }
