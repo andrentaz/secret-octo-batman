@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity
         implements  DatePickerFragment.DatePickerListener,
                     PeopleDialogFragment.PeopleDialogListener,
                     DeletionDialogFragment.DeletionDialogListener,
+                    SetupDialogFragment.SetupDialogListener,
                     ActionBar.TabListener {
 
     // Constants
@@ -63,7 +64,7 @@ public class MainActivity extends ActionBarActivity
     private CsvFormatter mFormatter;
 
     // Google API
-    private GoogleApiClient mGoogleApiClient;
+    //private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,14 +127,14 @@ public class MainActivity extends ActionBarActivity
     /* ------------------------------------------------------------------------------------------ */
     /* Google API Stuff */
     // Change to Connect when start the application
-    @Override
+ /*   @Override
     protected void onStart() {
         super.onStart();
         this.mGoogleApiClient.connect();
-    }
+    }*/
 
     // If connection failed
-    @Override
+    //@Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         if (connectionResult.hasResolution()) {
             try {
@@ -219,8 +220,6 @@ public class MainActivity extends ActionBarActivity
         Uri csv = FileProvider.getUriForFile(getApplicationContext(), "com.myco.lcreporter", file);
         grantUriPermission("com.myco.lcreporter", csv, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        Toast.makeText(getApplicationContext(), csv.getPath(), Toast.LENGTH_LONG).show();
-
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_STREAM, csv);
@@ -276,11 +275,13 @@ public class MainActivity extends ActionBarActivity
                     cursor.close();
                 }
                 break;
+/*
             case RESOLVE_CONNECTION_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     this.mGoogleApiClient.connect();
                 }
                 break;
+*/
         }
     }
 
@@ -412,6 +413,28 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onDeletionDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onSetupDialogPositiveClick(DialogFragment dialog) {
+        // Save the data to settings
+        Dialog dialogView = dialog.getDialog();
+        EditText editText = (EditText) dialogView.findViewById(R.id.setup_lname);
+
+        String temp = editText.getText().toString();
+
+        /* Changes and apply */
+        SharedPreferences.Editor editor = this.mySettings.edit();
+        editor.putString("pref_lider", temp);
+        editor.commit();
+
+        editText = (EditText) dialogView.findViewById(R.id.setup_lphone);
+
+    }
+
+    @Override
+    public void onSetupDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
     }
 }

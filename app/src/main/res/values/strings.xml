@@ -67,5 +67,15 @@
     <string name="toast_undo">Desfazer</string>
     <string name="pref_date">20/08/1991</string>
     <string name="sendCsvFile">Compartilhar Via:</string>
+    <string name="dialog_firstSetup_title">Configurar Conta</string>
+    <string name="dialog_master_name">Nome do Lider de Equipe</string>
+    <string name="dialog_eqp_name">Equipe</string>
+    <string name="dialog_rede">Rede</string>
+    <string name="dialog_email">Email</string>
+    <string name="dialog_ok">OK</string>
+    <string name="text_phone">Telefones</string>
+    <string name="pref__summ_add_core">Adicionar Núcleo Perfeito em todo Relatório</string>
+    <string name="pref_add_core">Núcleo Presente</string>
+    <string name="dflt_email">nome@email.com</string>
 
 </resources>

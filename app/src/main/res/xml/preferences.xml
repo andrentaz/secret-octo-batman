@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="pref_screen">
 
     <PreferenceCategory
         android:title="@string/pcat_nucleo"
@@ -32,6 +33,38 @@
             android:key="pref_date"
             android:defaultValue="@string/pref_date" />
 
+        <CheckBoxPreference
+            android:title="@string/pref_add_core"
+            android:key="pref_add_core"
+            android:defaultValue="true"
+            android:summary="@string/pref__summ_add_core" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/text_phone"
+        android:key="pref_catPhone">
+
+        <EditTextPreference
+            android:title="@string/text_lider"
+            android:key="pref_phone_lider"
+            android:defaultValue="" />
+
+        <EditTextPreference
+            android:title="@string/text_colider"
+            android:key="pref_phone_colider"
+            android:defaultValue="" />
+
+        <EditTextPreference
+            android:title="@string/text_lt1"
+            android:key="pref_phone_lt1"
+            android:defaultValue="" />
+
+        <EditTextPreference
+            android:title="@string/text_host"
+            android:key="pref_phone_host"
+            android:defaultValue="" />
+
     </PreferenceCategory>
 
 
@@ -43,17 +76,24 @@
             android:defaultValue="@string/pref_eqpName" />
 
         <EditTextPreference
-            android:title="@string/text_master"
-            android:key="pref_master"
-            android:defaultValue="@string/pref_masterName" />
-
-        <EditTextPreference
             android:title="@string/text_rede"
             android:key="pref_rede"
             android:defaultValue="@string/pref_redeName"
             android:summary="@string/pref_summ_rede" />
 
+        <EditTextPreference
+            android:title="@string/text_master"
+            android:key="pref_master"
+            android:defaultValue="@string/pref_masterName" />
+
+        <EditTextPreference
+            android:title="@string/dialog_email"
+            android:key="pref_lemail"
+            android:defaultValue="@string/dflt_email" />
 
     </PreferenceCategory>
+
+    <CheckBoxPreference
+        android:key="pref_config" />
 
 </PreferenceScreen>
