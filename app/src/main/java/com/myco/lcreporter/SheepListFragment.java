@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Andre on 14/02/2015.
  * Class that inflates the list layout
  */
-public class ContactListFragment extends ListFragment {
+public class SheepListFragment extends ListFragment {
 
     public static final String ARG_POSITION =
             "com.myco.lcreporter.ContactsListFragment.POSITION";
@@ -22,7 +22,7 @@ public class ContactListFragment extends ListFragment {
             "com.myco.lcreporter.ContactisListFragment.DELETE";
 
     private List<Sheep> mItems;
-    private ContactAdapter adapter;
+    private SheepAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class ContactListFragment extends ListFragment {
         mItems = new ArrayList<Sheep>();
 
         // Inicialize and set the adapter
-        adapter = new ContactAdapter(getActivity(), mItems);
+        adapter = new SheepAdapter(getActivity(), mItems);
         setListAdapter(adapter);
     }
 

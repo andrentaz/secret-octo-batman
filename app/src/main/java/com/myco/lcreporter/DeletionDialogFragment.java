@@ -46,7 +46,7 @@ public class DeletionDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         // Get arguments
         Bundle bundle = getArguments();
-        final int position = bundle.getInt(ContactListFragment.ARG_POSITION);
+        final int position = bundle.getInt(SheepListFragment.ARG_POSITION);
 
         /* Inflate and set the layout for the dialog
          * Pass null as the parent View because its going in the dialog layout

@@ -7,25 +7,25 @@
         <EditTextPreference
             android:title="@string/text_lider"
             android:key="pref_lider"
-            android:defaultValue="@string/pref_liderName"
+            android:defaultValue=""
             android:summary="@string/pref_summ_lider" />
 
         <EditTextPreference
             android:title="@string/text_colider"
             android:key="pref_colider"
-            android:defaultValue="@string/pref_coliderName"
+            android:defaultValue=""
             android:summary="@string/pref_summ_colider" />
 
         <EditTextPreference
             android:title="@string/text_lt1"
             android:key="pref_lt1"
-            android:defaultValue="@string/pref_lt1Name"
+            android:defaultValue=""
             android:summary="@string/pref_summ_lt1" />
 
         <EditTextPreference
             android:title="@string/text_host"
             android:key="pref_host"
-            android:defaultValue="@string/pref_hostName" />
+            android:defaultValue="" />
 
         <EditTextPreference
             android:title="@string/text_date"

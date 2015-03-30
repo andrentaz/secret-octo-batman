@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * Created by nakagaki on 13/02/2015.
  */
-public class ContactAdapter extends ArrayAdapter<Sheep> {
+public class SheepAdapter extends ArrayAdapter<Sheep> {
 
     /**
      * Creates an instance adapter, set all the values in the list
      */
-    public ContactAdapter(Context context, List<Sheep> items) {
+    public SheepAdapter(Context context, List<Sheep> items) {
         super(context, R.layout.item_contacts_list, items);
     }
 

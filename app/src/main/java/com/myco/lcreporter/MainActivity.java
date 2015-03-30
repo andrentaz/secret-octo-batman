@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
@@ -29,12 +28,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.Drive;
 
 public class MainActivity extends ActionBarActivity
         implements  DatePickerFragment.DatePickerListener,
@@ -56,7 +53,7 @@ public class MainActivity extends ActionBarActivity
     // Attributes - List Contacts
     private Sheep cacheSheep;
     private int cachePos;
-    private ContactListFragment mListFrag;
+    private SheepListFragment mListFrag;
 
     // Attributes - Tabs
     private String[] tabs = { "Núcleo", "Equipe", "Ovelhas" };
@@ -106,7 +103,7 @@ public class MainActivity extends ActionBarActivity
         }
 
         // Set the third fragment and the formatter
-        this.mListFrag = (ContactListFragment) this.mAdapter.getItem(2);
+        this.mListFrag = (SheepListFragment) this.mAdapter.getItem(2);
         this.mFormatter = new CsvFormatter();
     }
 

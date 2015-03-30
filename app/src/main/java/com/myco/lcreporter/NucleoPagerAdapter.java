@@ -15,7 +15,7 @@ public class NucleoPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         mScreen[0] = new MainFragment();
         mScreen[1] = new EqpFragment();
-        mScreen[2] = new ContactListFragment();
+        mScreen[2] = new SheepListFragment();
     }
 
     @Override
