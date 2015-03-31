@@ -26,11 +26,11 @@ public class SheepAdapter extends ArrayAdapter<Sheep> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            // Inflate the GridView Item Layout
+            // Inflate the View Item Layout
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_sheep_list, parent, false);
 
-            // Inicialize the View Holder
+            // Initialize the View Holder
             viewHolder = new ViewHolder();
             viewHolder.setTvName((TextView) convertView.findViewById(R.id.item_firstLine));
             viewHolder.setTvNumber((TextView) convertView.findViewById(R.id.item_secondLine));

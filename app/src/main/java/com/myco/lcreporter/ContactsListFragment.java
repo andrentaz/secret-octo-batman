@@ -1,7 +1,6 @@
 package com.myco.lcreporter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +12,9 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AlphabetIndexer;
 import android.widget.ListView;
-import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,7 +73,7 @@ public class ContactsListFragment extends ListFragment implements
                 R.layout.item_contact,
                 null,
                 new String[] {ContactsContract.Contacts.DISPLAY_NAME},
-                new int[] {R.id.tvTitle});
+                new int[] {R.id.tvName});
 
         // Set the adapter
         setListAdapter(mAdapter);
@@ -174,44 +170,5 @@ public class ContactsListFragment extends ListFragment implements
 
     public Map<String, String> retrieveList() {
         return mItems;
-    }
-
-    /* ------------------------------------------------------------------------------------------ */
-    /* ------------------------------------------------------------------------------------------ */
-    private class IndexedListAdapter extends SimpleCursorAdapter implements SectionIndexer {
-
-        AlphabetIndexer alphaIndexer;
-
-        public IndexedListAdapter(Context context, int layout, Cursor c,
-                                  String[] from, int[] to) {
-            super(context, layout, c, from, to, 0);
-        }
-
-        @Override
-        public Cursor swapCursor(Cursor c) {
-            if (c != null) {
-                alphaIndexer = new AlphabetIndexer(c,
-                        c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME),
-                        " ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-            }
-
-            return super.swapCursor(c);
-        }
-
-        @Override
-        public int getPositionForSection(int section) {
-            return alphaIndexer.getPositionForSection(section);
-        }
-
-        @Override
-        public int getSectionForPosition(int position) {
-            return alphaIndexer.getSectionForPosition(position);
-        }
-
-        @Override
-        public Object[] getSections() {
-            return alphaIndexer == null ? null : alphaIndexer.getSections();
-        }
-
     }
 }

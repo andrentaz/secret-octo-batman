@@ -240,10 +240,6 @@ public class MainActivity extends ActionBarActivity
     /* ------------------------------------------------------------------------------------------ */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Cursor cursor;
-        String name, number = "No Number!";
-        int nameIndex, idIndex, hasNumber;
-
 
         /* Check if the result is ok */
         if (resultCode == RESULT_OK) {
@@ -301,11 +297,6 @@ public class MainActivity extends ActionBarActivity
      * @param view
      */
     public void addContact(View view) {
-        // Set the intent
-        //Intent contactsIntent = new Intent(Intent.ACTION_PICK,
-        //        ContactsContract.Contacts.CONTENT_URI);
-        //startActivityForResult(contactsIntent, PICK_CONTACT);
-
         // Set the Activity to picker
         Intent contactsIntent = new Intent(this, ContactsPickerActivity.class);
         startActivityForResult(contactsIntent, PICK_CONTACT);

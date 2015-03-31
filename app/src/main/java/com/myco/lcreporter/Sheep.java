@@ -1,9 +1,11 @@
 package com.myco.lcreporter;
 
+import java.io.Serializable;
+
 /**
- * Created by Gabriel on 14/02/2015.
+ * Created by Andre on 14/02/2015.
  */
-public class Sheep {
+public class Sheep implements Serializable {
     private final String name;
     private final String number;
 
