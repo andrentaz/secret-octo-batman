@@ -30,6 +30,7 @@
     <string name="button_fill">Generate</string>
     <string name="button_addContact">Add Contact</string>
     <string name="button_addPeople">Add People</string>
+    <string name="button_addFromList">Add contacts</string>
 
     <!-- Preferences -->
     <string name="name_str">Name</string>

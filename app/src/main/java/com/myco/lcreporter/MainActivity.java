@@ -28,9 +28,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+//import com.google.android.gms.common.ConnectionResult;
+//import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends ActionBarActivity
@@ -123,13 +124,13 @@ public class MainActivity extends ActionBarActivity
     /* ------------------------------------------------------------------------------------------ */
     /* Google API Stuff */
     // Change to Connect when start the application
-    @Override
+/*    @Override
     protected void onStart() {
         super.onStart();
-        this.mGoogleApiClient.connect();
-    }
+        //this.mGoogleApiClient.connect();
+    } */
 
-    // If connection failed
+/*    // If connection failed
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         if (connectionResult.hasResolution()) {
@@ -141,7 +142,7 @@ public class MainActivity extends ActionBarActivity
         } else {
             GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
         }
-    }
+    } */
 
 
 
@@ -244,60 +245,29 @@ public class MainActivity extends ActionBarActivity
         int nameIndex, idIndex, hasNumber;
 
 
-        /* Check the data */
-        switch (requestCode) {
-            case PICK_CONTACT:      // Pegou o contato
-                if (resultCode == RESULT_OK) {
-                    // Query the databank
+        /* Check if the result is ok */
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PICK_CONTACT:      // Get the contact
 
-                    cursor = getContentResolver().query(data.getData(),
-                            null, null, null, null);
+                    /* Get the list */
+                    List<Sheep> array = (List<Sheep>) data
+                            .getSerializableExtra(ContactsPickerActivity.SHEEP_ARRAY);
 
-                    while (cursor.moveToNext()) {
-                        // Get the Indexes
-                        nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
-                        idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID);
-                        hasNumber = cursor.getColumnIndex(
-                                ContactsContract.Contacts.HAS_PHONE_NUMBER);
+                    mListFrag.addList(array);
 
-                        // Get the data
-                        name = cursor.getString(nameIndex);
+                    break;
 
-                        if (Integer.parseInt(cursor.getString(hasNumber)) > 0)
-                            number = queryNumber(cursor.getString(idIndex));
-
-                        //Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG).show();
-                        Sheep sheep = new Sheep(name, number);
-                        this.mListFrag.addSheep(sheep);
+                /*case RESOLVE_CONNECTION_REQUEST_CODE:
+                    if (resultCode == RESULT_OK) {
+                        this.mGoogleApiClient.connect();
                     }
-                    cursor.close();
-                }
-                break;
-            case RESOLVE_CONNECTION_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    this.mGoogleApiClient.connect();
-                }
-                break;
+                    break;*/
+                default:
+                    Toast.makeText(this, "No Action Found!", Toast.LENGTH_LONG).show();
+                    break;
+            }
         }
-    }
-
-    private String queryNumber(String id) {
-        String number = "No Number";
-        Cursor cur = getContentResolver().query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",
-                new String[]{id},
-                null
-        );
-
-        while (cur.moveToNext()) {
-            number = cur.getString(
-                    cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-            );
-        }
-
-        return number;
     }
 
 
@@ -332,9 +302,14 @@ public class MainActivity extends ActionBarActivity
      */
     public void addContact(View view) {
         // Set the intent
-        Intent contactsIntent = new Intent(Intent.ACTION_PICK,
-                ContactsContract.Contacts.CONTENT_URI);
+        //Intent contactsIntent = new Intent(Intent.ACTION_PICK,
+        //        ContactsContract.Contacts.CONTENT_URI);
+        //startActivityForResult(contactsIntent, PICK_CONTACT);
+
+        // Set the Activity to picker
+        Intent contactsIntent = new Intent(this, ContactsPickerActivity.class);
         startActivityForResult(contactsIntent, PICK_CONTACT);
+
     }
 
     /**

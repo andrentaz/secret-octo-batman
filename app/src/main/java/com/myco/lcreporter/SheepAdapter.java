@@ -18,7 +18,7 @@ public class SheepAdapter extends ArrayAdapter<Sheep> {
      * Creates an instance adapter, set all the values in the list
      */
     public SheepAdapter(Context context, List<Sheep> items) {
-        super(context, R.layout.item_contacts_list, items);
+        super(context, R.layout.item_sheep_list, items);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class SheepAdapter extends ArrayAdapter<Sheep> {
         if (convertView == null) {
             // Inflate the GridView Item Layout
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_contacts_list, parent, false);
+            convertView = inflater.inflate(R.layout.item_sheep_list, parent, false);
 
             // Inicialize the View Holder
             viewHolder = new ViewHolder();

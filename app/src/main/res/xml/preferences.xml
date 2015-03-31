@@ -40,18 +40,18 @@
         <EditTextPreference
             android:title="@string/text_eqp"
             android:key="pref_eqp"
-            android:defaultValue="@string/pref_eqpName" />
+            android:defaultValue="" />
 
         <EditTextPreference
             android:title="@string/text_master"
             android:key="pref_master"
-            android:defaultValue="@string/pref_masterName" />
+            android:defaultValue="" />
 
         <EditTextPreference
             android:title="@string/text_rede"
             android:key="pref_rede"
-            android:defaultValue="@string/pref_redeName"
-            android:summary="@string/pref_summ_rede" />
+            android:defaultValue=""
+            android:summary="" />
 
 
     </PreferenceCategory>

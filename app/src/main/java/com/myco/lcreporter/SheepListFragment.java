@@ -41,7 +41,7 @@ public class SheepListFragment extends ListFragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_list_layout, container, false);
+        return inflater.inflate(R.layout.list_sheep_layout, container, false);
     }
 
     /* ------------------------------------------------------------------------------------------ */
@@ -52,6 +52,14 @@ public class SheepListFragment extends ListFragment {
      */
     public void addSheep(Sheep sheep) {
         mItems.add(sheep);
+        adapter.notifyDataSetChanged();
+    }
+
+
+    public void addList(List<Sheep> array) {
+        for (Sheep sheep : array) {
+            mItems.add(sheep);
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -106,4 +114,5 @@ public class SheepListFragment extends ListFragment {
     public int getSize() {
         return this.mItems.size();
     }
+
 }
