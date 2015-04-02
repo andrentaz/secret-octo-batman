@@ -67,13 +67,35 @@ public class ContactsListFragment extends ListFragment implements
         // Initiate the Loader
         getLoaderManager().initLoader(0, null, this);
 
+        // Columns that should be taken from the Adapter
+        String columns[] = new String[] {
+                ContactsContract.Contacts.DISPLAY_NAME,
+                ContactsContract.Contacts._ID
+        };
+
+        int placeHolders[] = new int[] {R.id.tvName, R.id.tvNumber};
+
+        Cursor cursor = getActivity().getContentResolver().query(
+                ContactsContract.Contacts.CONTENT_URI,
+                columns,
+                null,
+                null,
+                null
+        );
+        getActivity().startManagingCursor(cursor);
+
+        /*
+        String columns[] = new String[] {ContactsContract.Contacts.DISPLAY_NAME};
+        int placeHolders[] = new int[] {R.id.tvName}; */
+
         // Create the adapter to pass the Views to the ListView
         mAdapter = new IndexedListAdapter(
                 getActivity(),
                 R.layout.item_contact,
-                null,
-                new String[] {ContactsContract.Contacts.DISPLAY_NAME},
-                new int[] {R.id.tvName});
+                cursor,
+                columns,
+                placeHolders
+        );
 
         // Set the adapter
         setListAdapter(mAdapter);
