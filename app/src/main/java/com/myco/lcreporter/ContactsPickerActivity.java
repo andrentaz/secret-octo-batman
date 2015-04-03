@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,22 +43,19 @@ public class ContactsPickerActivity extends FragmentActivity implements
 
     /**
      * Creates the sheep and add to the list of the fragment
-     * @param name String with the name of the contact.
-     * @param number String with the number of the contact.
+     * @param sheep String with the name of the contact.
+     * @param view  of the contact.
      */
-
     @Override
-    public void onContactNameSelected(String name, String number, View view) {
+    public void onContactNameSelected(Sheep sheep, View view) {
         /* Confirm the CheckBox state */
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.selectedCheckBox);
 
         if (!checkBox.isChecked()) {    // add the contact to the map
-            Sheep sheep = new Sheep(name, number);
             mListFragment.add(sheep);
             checkBox.setChecked(true);
         } else {    // get it out the contact from the map
-            Sheep sheep = new Sheep(name, number);
-            mListFragment.delete(sheep);
+            mListFragment.remove(sheep);
             checkBox.setChecked(false);
         }
     }
@@ -67,14 +63,14 @@ public class ContactsPickerActivity extends FragmentActivity implements
     /* Pass the results to the caller and finish the activity */
     public void addListOfContacts(View view) {
         Intent data = new Intent();
-        Map<String, String> hash = mListFragment.retrieveList();
+        Map<String, Sheep> hash = mListFragment.retrieveList();
         Iterator it = hash.entrySet().iterator();
         List<Sheep> list = new ArrayList<>();
 
         /* Iterate over the elements of the map */
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
-            list.add(new Sheep((String) pair.getValue(), (String) pair.getKey()));
+            list.add((Sheep) pair.getValue());
         }
 
         data.putExtra(SHEEP_ARRAY, (Serializable) list);

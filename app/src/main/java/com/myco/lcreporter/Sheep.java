@@ -1,5 +1,7 @@
 package com.myco.lcreporter;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -8,10 +10,18 @@ import java.io.Serializable;
 public class Sheep implements Serializable {
     private final String name;
     private final String number;
+    private final Bitmap thumb;
 
     public Sheep(String name, String number) {
         this.name = name;
         this.number = number;
+        this.thumb = null;
+    }
+
+    public Sheep(String name, String number, Bitmap thumb) {
+        this.name = name;
+        this.number = number;
+        this.thumb = thumb;
     }
 
     public String getName() {
@@ -31,5 +41,9 @@ public class Sheep implements Serializable {
                 return true;
 
         return false;
+    }
+
+    public Bitmap getThumb() {
+        return thumb;
     }
 }

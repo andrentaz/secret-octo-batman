@@ -28,10 +28,10 @@ public class SheepListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Inicialize the item list
+        // Initialize the item list
         mItems = new ArrayList<Sheep>();
 
-        // Inicialize and set the adapter
+        // Initialize and set the adapter
         adapter = new SheepAdapter(getActivity(), mItems);
         setListAdapter(adapter);
     }
