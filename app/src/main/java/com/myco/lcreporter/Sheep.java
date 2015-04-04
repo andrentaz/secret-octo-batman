@@ -1,26 +1,28 @@
 package com.myco.lcreporter;
 
 import android.graphics.Bitmap;
-
-import java.io.Serializable;
+import android.net.Uri;
 
 /**
  * Created by Andre on 14/02/2015.
  */
-public class Sheep implements Serializable {
+public class Sheep {
     private final String name;
     private final String number;
+    private final Uri contactUri;
     private final Bitmap thumb;
 
     public Sheep(String name, String number) {
         this.name = name;
         this.number = number;
+        this.contactUri = null;
         this.thumb = null;
     }
 
-    public Sheep(String name, String number, Bitmap thumb) {
+    public Sheep(String name, String number, Uri contactUri, Bitmap thumb) {
         this.name = name;
         this.number = number;
+        this.contactUri = contactUri;
         this.thumb = thumb;
     }
 
@@ -32,18 +34,15 @@ public class Sheep implements Serializable {
         return number;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        Sheep obj = (Sheep) o;
-
-        if (this.getName() == obj.getName())
-            if (this.getNumber() == obj.getNumber())
-                return true;
-
-        return false;
+    public Uri getContactUri() {
+        return contactUri;
     }
 
     public Bitmap getThumb() {
         return thumb;
+    }
+
+    public SimpleItem toSimpleItem() {
+        return new SimpleItem(name, number);
     }
 }

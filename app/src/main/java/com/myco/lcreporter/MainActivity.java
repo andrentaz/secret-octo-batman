@@ -2,14 +2,11 @@ package com.myco.lcreporter;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
@@ -52,12 +49,12 @@ public class MainActivity extends ActionBarActivity
     private NucleoPagerAdapter mAdapter;    // Provide the pages to the ViewPager
 
     // Attributes - List Contacts
-    private Sheep cacheSheep;
+    private SimpleItem cacheSheep;
     private int cachePos;
     private SheepListFragment mListFrag;
 
     // Attributes - Tabs
-    private String[] tabs = { "Núcleo", "Equipe", "Ovelhas" };
+    private String[] tabs = { "Core", "Team", "Sheep" };
     private CsvFormatter mFormatter;
 
     // Google API
@@ -193,7 +190,7 @@ public class MainActivity extends ActionBarActivity
 
         // Creates the CSV Text
         for (int i=0; i<size; i++) {
-            temp = (i+1) + ", " + this.mListFrag.getSheepInfo(i);
+            temp = (i+1) + ", " + this.mListFrag.getSimpleItemInfo(i);
             this.mFormatter.addRow(temp);
         }
         dataString = this.mFormatter.toString();
@@ -247,8 +244,8 @@ public class MainActivity extends ActionBarActivity
                 case PICK_CONTACT:      // Get the contact
 
                     /* Get the list */
-                    List<Sheep> array = (List<Sheep>) data
-                            .getSerializableExtra(ContactsPickerActivity.SHEEP_ARRAY);
+                    List<SimpleItem> array = (List<SimpleItem>) data
+                            .getSerializableExtra(ContactsPickerActivity.SI_ARRAY);
 
                     mListFrag.addList(array);
 
@@ -335,7 +332,7 @@ public class MainActivity extends ActionBarActivity
      * @param view
      */
     public void undoRemove(View view) {
-        this.mListFrag.insertSheep(this.cachePos, this.cacheSheep);
+        this.mListFrag.insertSimpleItem(this.cachePos, this.cacheSheep);
         findViewById(R.id.undobar).setVisibility(View.GONE);
     }
 
@@ -350,7 +347,7 @@ public class MainActivity extends ActionBarActivity
         EditText userView = (EditText) dialogView.findViewById(R.id.dialog_username);
         EditText numberView = (EditText) dialogView.findViewById(R.id.dialog_cellphone);
 
-        this.mListFrag.addSheep(new Sheep(
+        this.mListFrag.addSheep(new SimpleItem(
                         userView.getText().toString(),
                         numberView.getText().toString()
                 )
@@ -366,7 +363,7 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onDeletionDialogPositiveClick(DialogFragment dialog, int position) {
-        this.cacheSheep = this.mListFrag.getSheep(position);
+        this.cacheSheep = this.mListFrag.getSimpleItem(position);
         this.cachePos = position;
         this.mListFrag.removeSheep(position);
         dialog.dismiss();

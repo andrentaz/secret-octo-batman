@@ -21,7 +21,7 @@ import java.util.Map;
 public class ContactsPickerActivity extends FragmentActivity implements
         ContactsListFragment.OnContactSelectedListener {
 
-    public static final String SHEEP_ARRAY = "com.myco.lcreporter.ContactsPickerActivity.SARRAY";
+    public static final String SI_ARRAY = "com.myco.lcreporter.ContactsPickerActivity.SARRAY";
 
     private ContactsListFragment mListFragment;
 
@@ -65,15 +65,15 @@ public class ContactsPickerActivity extends FragmentActivity implements
         Intent data = new Intent();
         Map<String, Sheep> hash = mListFragment.retrieveList();
         Iterator it = hash.entrySet().iterator();
-        List<Sheep> list = new ArrayList<>();
+        List<SimpleItem> list = new ArrayList<>();
 
         /* Iterate over the elements of the map */
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
-            list.add((Sheep) pair.getValue());
+            list.add( ((Sheep) pair.getValue()).toSimpleItem() );
         }
 
-        data.putExtra(SHEEP_ARRAY, (Serializable) list);
+        data.putExtra(SI_ARRAY, (Serializable) list);
         setResult(RESULT_OK, data);
         finish();
     }

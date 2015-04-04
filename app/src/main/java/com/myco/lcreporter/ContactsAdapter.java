@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import java.util.List;
@@ -32,7 +33,8 @@ public class ContactsAdapter extends ArrayAdapter<Sheep> {
             viewHolder = new ViewHolder();
             viewHolder.setTvName((TextView) convertView.findViewById(R.id.tvName));
             viewHolder.setTvNumber((TextView) convertView.findViewById(R.id.tvNumber));
-            viewHolder.setIvThumb((ImageView) convertView.findViewById(R.id.ivThumb));
+            viewHolder.setvBadge(
+                    (QuickContactBadge) convertView.findViewById(R.id.quickBadge));
             convertView.setTag(viewHolder);
         } else {
             // Recycle the already inflated view
@@ -43,7 +45,10 @@ public class ContactsAdapter extends ArrayAdapter<Sheep> {
         Sheep item = getItem(position);
         viewHolder.getTvName().setText(item.getName());
         viewHolder.getTvNumber().setText(item.getNumber());
-        viewHolder.getIvThumb().setImageBitmap(item.getThumb());
+        QuickContactBadge badge = viewHolder.getvBadge();
+
+        badge.setImageBitmap(item.getThumb());
+        badge.assignContactUri(item.getContactUri());
 
         return convertView;
     }
@@ -57,7 +62,7 @@ public class ContactsAdapter extends ArrayAdapter<Sheep> {
     private class ViewHolder {
         private TextView tvName;
         private TextView tvNumber;
-        private ImageView ivThumb;
+        private QuickContactBadge vBadge;
 
         public TextView getTvName() {
             return tvName;
@@ -75,12 +80,12 @@ public class ContactsAdapter extends ArrayAdapter<Sheep> {
             this.tvNumber = tvNumber;
         }
 
-        public ImageView getIvThumb() {
-            return ivThumb;
+        public QuickContactBadge getvBadge() {
+            return vBadge;
         }
 
-        public void setIvThumb(ImageView ivThumb) {
-            this.ivThumb = ivThumb;
+        public void setvBadge(QuickContactBadge vBadge) {
+            this.vBadge = vBadge;
         }
     }
 }
