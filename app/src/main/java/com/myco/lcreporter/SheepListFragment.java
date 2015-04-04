@@ -21,17 +21,17 @@ public class SheepListFragment extends ListFragment {
     private static final String DELETION_DIALOG_TAG =
             "com.myco.lcreporter.ContactisListFragment.DELETE";
 
-    private List<Sheep> mItems;
+    private List<SimpleItem> mItems;
     private SheepAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Inicialize the item list
-        mItems = new ArrayList<Sheep>();
+        // Initialize the item list
+        mItems = new ArrayList<>();
 
-        // Inicialize and set the adapter
+        // Initialize and set the adapter
         adapter = new SheepAdapter(getActivity(), mItems);
         setListAdapter(adapter);
     }
@@ -50,14 +50,14 @@ public class SheepListFragment extends ListFragment {
      * Add an element in the ListView
      * @param sheep
      */
-    public void addSheep(Sheep sheep) {
+    public void addSheep(SimpleItem sheep) {
         mItems.add(sheep);
         adapter.notifyDataSetChanged();
     }
 
 
-    public void addList(List<Sheep> array) {
-        for (Sheep sheep : array) {
+    public void addList(List<SimpleItem> array) {
+        for (SimpleItem sheep : array) {
             mItems.add(sheep);
         }
         adapter.notifyDataSetChanged();
@@ -77,7 +77,7 @@ public class SheepListFragment extends ListFragment {
      * @param position
      * @return item in the position
      */
-    public Sheep getSheep(int position) {
+    public SimpleItem getSimpleItem(int position) {
         return this.mItems.get(position);
     }
 
@@ -86,12 +86,12 @@ public class SheepListFragment extends ListFragment {
      * @param cachePos
      * @param cacheSheep
      */
-    public void insertSheep(int cachePos, Sheep cacheSheep) {
+    public void insertSimpleItem(int cachePos, SimpleItem cacheSheep) {
         this.mItems.add(cachePos, cacheSheep);
     }
 
-    public String getSheepInfo(int pos) {
-        Sheep temp = this.mItems.get(pos);
+    public String getSimpleItemInfo(int pos) {
+        SimpleItem temp = this.mItems.get(pos);
         return "\"" + temp.getName() + "\"," + "\"" + temp.getNumber() + "\"";
     }
 

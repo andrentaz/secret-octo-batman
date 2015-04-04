@@ -1,196 +1,253 @@
 package com.myco.lcreporter;
 
 import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds;
 
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by nakagaki on 30/03/2015.
  */
-public class ContactsListFragment extends ListFragment implements
-        LoaderCallbacks<Cursor> {
+public class ContactsListFragment extends ListFragment {
 
     public interface OnContactSelectedListener {
 
-        /**
-         * Callback when the contact is selected from the list of contacts
-         * @param name String with the name of the contact.
-         * @param number String with the number of the contact.
-         * @param view The View selected to see the CheckBox
-         */
-        public void onContactNameSelected(String name, String number, View view);
-
+        public void onContactNameSelected(Sheep sheep, View view);
     }
+    private List<Sheep> mItems;
 
-    private Map<String, String> mItems = new HashMap<String, String>();
-    private OnContactSelectedListener mContactsListener;
-    private SimpleCursorAdapter mAdapter;
-    private String mCurrentFilter = null;
+    private final Map<String, Sheep> mSelectedItems = new HashMap<>();
+    private ContactsAdapter mAdapter;
+    private OnContactSelectedListener mListener;
+    private Bitmap mThumb;
 
-    // Search String
-    private static final String[] CONTACTS_SUMMARY_PROJECTION = new String[] {
-        ContactsContract.Contacts._ID,
-        ContactsContract.Contacts.DISPLAY_NAME,
-        ContactsContract.Contacts.HAS_PHONE_NUMBER,
-        ContactsContract.Contacts.LOOKUP_KEY
+    /* Projections */
+    private final String[] commonProjection = {
+            CommonDataKinds.Phone._ID,
+            CommonDataKinds.Phone.DISPLAY_NAME,
+            CommonDataKinds.Phone.NUMBER
     };
 
-    // Inflate the view
+    private final String[] thumbProjection = {
+            ContactsContract.Contacts._ID,
+            ContactsContract.Contacts.DISPLAY_NAME,
+            ContactsContract.Contacts.LOOKUP_KEY,
+            ContactsContract.Contacts.PHOTO_THUMBNAIL_URI
+    };
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list_contact_layout, container, false);
-    }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    // Set the adapter and some UI information
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        // Initialize the items
+        mItems = new ArrayList<>();
+        setThumb();
+        populate();
 
-        // Creates the option menu
-        setHasOptionsMenu(true);
-
-        // Initiate the Loader
-        getLoaderManager().initLoader(0, null, this);
-
-        // Columns that should be taken from the Adapter
-        String columns[] = new String[] {
-                ContactsContract.Contacts.DISPLAY_NAME,
-                ContactsContract.Contacts._ID
-        };
-
-        int placeHolders[] = new int[] {R.id.tvName, R.id.tvNumber};
-
-        Cursor cursor = getActivity().getContentResolver().query(
-                ContactsContract.Contacts.CONTENT_URI,
-                columns,
-                null,
-                null,
-                null
-        );
-        getActivity().startManagingCursor(cursor);
-
-        /*
-        String columns[] = new String[] {ContactsContract.Contacts.DISPLAY_NAME};
-        int placeHolders[] = new int[] {R.id.tvName}; */
-
-        // Create the adapter to pass the Views to the ListView
-        mAdapter = new IndexedListAdapter(
-                getActivity(),
-                R.layout.item_contact,
-                cursor,
-                columns,
-                placeHolders
-        );
-
-        // Set the adapter
+        // Initialize the adapter
+        mAdapter = new ContactsAdapter(getActivity(), mItems);
         setListAdapter(mAdapter);
-        getListView().setFastScrollEnabled(true);
     }
 
-    /* Make sure that the activity implements the inner interface */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+        // Verify that the host activity implements the callback interface
         try {
-            mContactsListener = (OnContactSelectedListener) activity;
-        } catch (ClassCastException	e) {
-            throw new ClassCastException(activity.toString() +
-                    " must implement OnContactSelectedListener");
+            // Instantiate the PeopleDialogListener so we can send events to the host
+            mListener = (OnContactSelectedListener) activity;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnContactNameSelectedDialogListener");
         }
     }
 
-    /* When the user selects a contact - WILL BE CHANGED */
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.list_contact_layout, container, false);
+    }
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-		/* Retrieving the phone numbers in order to see if we have more than one */
-        String phoneNumber = null;
-        String name = null;
-
-        /* Make the query to get the number and the name */
-        String[] projection = new String[] {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
-        final Cursor phoneCursor = getActivity().getContentResolver().query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                projection,
-                ContactsContract.Data.CONTACT_ID + "=?",
-                new String[]{String.valueOf(id)},
-                null
-        );
-
-        /* Get the number and the name from the contact */
-        if(phoneCursor.moveToFirst() && phoneCursor.isLast()) {
-            final int contactNumberColumnIndex 	= phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            phoneNumber = phoneCursor.getString(contactNumberColumnIndex);
-            name = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-        }
-
-        /* Calls the activity method to deal with the data */
-        mContactsListener.onContactNameSelected(name, phoneNumber, v);
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-        Uri baseUri;
-
-        if (mCurrentFilter != null) {
-            baseUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_FILTER_URI,
-                    Uri.encode(mCurrentFilter));
-        } else {
-            baseUri = ContactsContract.Contacts.CONTENT_URI;
-        }
-
-        String selection = "((" + ContactsContract.Contacts.DISPLAY_NAME + " NOTNULL) AND ("
-                + ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1) AND ("
-                + ContactsContract.Contacts.DISPLAY_NAME + " != '' ))";
-
-        String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
-
-        return new CursorLoader(
-                getActivity(),
-                baseUri,
-                CONTACTS_SUMMARY_PROJECTION,
-                selection,
-                null,
-                sortOrder
-        );
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mAdapter.swapCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mAdapter.swapCursor(null);
+        Sheep sheep = mAdapter.getItem(position);
+        mListener.onContactNameSelected(sheep, v);
     }
 
     /* ------------------------------------------------------------------------------------------ */
+    private void populate() {
+
+        // Initialize the cursor
+        Cursor cursor = getActivity().getContentResolver().query(
+                CommonDataKinds.Phone.CONTENT_URI,
+                commonProjection,
+                null,
+                null,
+                CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
+        );
+
+        // Populate the list
+        while (cursor.moveToNext()) {
+
+            // Name
+            String name = cursor.getString(
+                    cursor.getColumnIndex(CommonDataKinds.Phone.DISPLAY_NAME)
+            );
+
+            // Number
+            String number = cursor.getString(
+                    cursor.getColumnIndex(CommonDataKinds.Phone.NUMBER)
+            );
+
+            Sheep sheep = getSheep(
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID)),
+                    name,
+                    number
+            );
+
+            // Add the Sheep to the list
+            mItems.add(sheep);
+        }
+    }
+
+    private void setThumb() {
+        Bitmap tmp = BitmapFactory.decodeResource(getResources(), R.drawable.generic_thumb);
+        mThumb = Bitmap.createScaledBitmap(tmp, 100, 100, true);
+    }
+
+    private Sheep getSheep(String contactId, String name, String number) {
+
+        String selection = ContactsContract.Contacts.DISPLAY_NAME + " LIKE '" + name +"'";
+
+        Cursor cursor = getActivity().getContentResolver().query(
+                ContactsContract.Contacts.CONTENT_URI,
+                thumbProjection,
+                selection,
+                null,
+                null
+        );
+
+        // The index of the _ID column in the Cursor
+        int idColumn;
+        // The index of the LOOKUP_KEY column in the Cursor
+        int lookupKeyColumn;
+        // A Content URI to the desired contact
+        Uri contactUri;
+        // Bitmap to bind to the Badge
+        Bitmap thumb;
+
+        if (cursor.getCount() == 0) {
+            return null;
+        } else {
+
+            while (cursor.moveToFirst()) {
+
+                /* Get the indexes to set the Badge */
+                idColumn = cursor.getColumnIndex(ContactsContract.Contacts._ID);
+                lookupKeyColumn = cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY);
+
+                /* Get the URI */
+                contactUri = ContactsContract.Contacts.getLookupUri(
+                        cursor.getLong(idColumn),
+                        cursor.getString(lookupKeyColumn)
+                );
+
+                int thumbnailColumn =
+                        cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI);
+
+                String thumbnailUri = cursor.getString(thumbnailColumn);
+
+                if (thumbnailUri == null) {
+                    thumb = mThumb;
+                } else {
+                    thumb = loadContactPhotoThumbnail(thumbnailUri);
+                }
+
+                return new Sheep(name, number, contactUri, thumb);
+            }
+        }
+        return null;
+    }
+
+    private Bitmap loadContactPhotoThumbnail(String photoData) {
+
+        // Creates an asset file descriptor for the thumbnail file.
+        AssetFileDescriptor afd = null;
+
+        // try-catch block for file not found
+        try {
+            // Creates a holder for the URI.
+            Uri thumbUri = Uri.parse(photoData);
+
+            /*
+             * Retrieves an AssetFileDescriptor object for the thumbnail
+             * URI
+             * using ContentResolver.openAssetFileDescriptor
+             */
+            afd = getActivity().getContentResolver().
+                    openAssetFileDescriptor(thumbUri, "r");
+            /*
+             * Gets a file descriptor from the asset file descriptor.
+             * This object can be used across processes.
+             */
+            FileDescriptor fileDescriptor = afd.getFileDescriptor();
+            // Decode the photo file and return the result as a Bitmap
+            // If the file descriptor is valid
+            if (fileDescriptor != null) {
+                // Decodes the bitmap
+                return BitmapFactory.decodeFileDescriptor(
+                        fileDescriptor, null, null);
+            }
+            // If the file isn't found
+        } catch (FileNotFoundException e) {
+                /*
+                 * Handle file not found errors
+                 */
+            e.printStackTrace();
+
+            // In all cases, close the asset file descriptor
+        } finally {
+            if (afd != null) {
+                try {
+                    afd.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
 
     public void add(Sheep sheep) {
-        mItems.put(sheep.getNumber(), sheep.getName());
+        mSelectedItems.put(sheep.getNumber(), sheep);
     }
 
-    public void delete(Sheep sheep) {
-        mItems.remove(sheep.getNumber());
+    public void remove(Sheep sheep) {
+        mSelectedItems.remove(sheep.getNumber());
     }
 
-    public Map<String, String> retrieveList() {
-        return mItems;
+    public Map<String, Sheep> retrieveList() {
+        return mSelectedItems;
     }
+
 }

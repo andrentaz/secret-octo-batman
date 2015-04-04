@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * Created by nakagaki on 13/02/2015.
  */
-public class SheepAdapter extends ArrayAdapter<Sheep> {
+public class SheepAdapter extends ArrayAdapter<SimpleItem> {
 
     /**
      * Creates an instance adapter, set all the values in the list
      */
-    public SheepAdapter(Context context, List<Sheep> items) {
+    public SheepAdapter(Context context, List<SimpleItem> items) {
         super(context, R.layout.item_sheep_list, items);
     }
 
@@ -41,7 +41,7 @@ public class SheepAdapter extends ArrayAdapter<Sheep> {
         }
 
         // Muda os valores do item
-        Sheep item = getItem(position);
+        SimpleItem item = getItem(position);
         viewHolder.getTvName().setText(item.getName());
         viewHolder.getTvNumber().setText(item.getNumber());
 

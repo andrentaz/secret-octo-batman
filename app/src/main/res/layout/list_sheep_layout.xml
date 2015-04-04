@@ -11,17 +11,26 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >
 
-        <Button
-            android:text="@string/button_addContact"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="addContact"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:text="@string/button_addPeople"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="addPeople" />
+            <Button
+                android:text="@string/button_addContact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="addContact"/>
+
+            <Button
+                android:text="@string/button_addPeople"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="addPeople" />
+
+        </LinearLayout>
 
         <Button
             android:text="@string/button_fill"
